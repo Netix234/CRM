@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KIZEX CRM</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="background">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="grid"></div>
+    </div>
+
+    <main class="auth-container">
+
+        <div class="logo">
+            KIZEX <span>CRM</span>
+        </div>
+
+        <!-- РЕГИСТРАЦИЯ -->
+
+        <section id="registerScreen" class="auth-card">
+
+            <div class="auth-header">
+                <h1>Создание аккаунта</h1>
+                <p>Создайте аккаунт вашего магазина</p>
+            </div>
+
+            <form id="registerForm">
+
+                <div class="input-group">
+                    <label>Название магазина</label>
+
+                    <input
+                        type="text"
+                        id="registerStore"
+                        placeholder="Например: KIZEX"
+                        autocomplete="organization"
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label>Пароль</label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="registerPassword"
+                            placeholder="Введите пароль"
+                            autocomplete="new-password"
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword('registerPassword', this)"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Повторите пароль</label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="registerPassword2"
+                            placeholder="Повторите пароль"
+                            autocomplete="new-password"
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword('registerPassword2', this)"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+                </div>
+
+                <div id="registerError" class="error-message"></div>
+
+                <button type="submit" class="auth-button">
+                    Создать аккаунт
+                </button>
+
+            </form>
+
+            <div class="switch-auth">
+                Уже есть аккаунт?
+
+                <button type="button" onclick="showLogin()">
+                    Войти
+                </button>
+            </div>
+
+        </section>
+
+
+        <!-- ВХОД -->
+
+        <section id="loginScreen" class="auth-card hidden">
+
+            <div class="auth-header">
+                <h1>Добро пожаловать</h1>
+                <p>Войдите в KIZEX CRM</p>
+            </div>
+
+            <form id="loginForm">
+
+                <div class="input-group">
+                    <label>Название магазина</label>
+
+                    <input
+                        type="text"
+                        id="loginStore"
+                        placeholder="Название магазина"
+                        autocomplete="username"
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label>Пароль</label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            placeholder="Введите пароль"
+                            autocomplete="current-password"
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword('loginPassword', this)"
+                        >
+                            👁
+                        </button>
+
+                    </div>
+                </div>
+
+                <div class="remember-row">
+
+                    <label class="remember-label">
+
+                        <input
+                            type="checkbox"
+                            id="remember"
+                            checked
+                        >
+
+                        <span>Запомнить меня</span>
+
+                    </label>
+
+                </div>
+
+                <div id="loginError" class="error-message"></div>
+
+                <button type="submit" class="auth-button">
+                    Войти
+                </button>
+
+            </form>
+
+            <div class="switch-auth">
+                Нет аккаунта?
+
+                <button type="button" onclick="showRegister()">
+                    Создать
+                </button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+
+</body>
+</html>

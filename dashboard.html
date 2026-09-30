@@ -1,0 +1,4571 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KIZEX CRM — Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #050505;
+            color: #fff;
+            font-family: Arial, Helvetica, sans-serif;
+            overflow-x: hidden;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+        .dashboard-wrapper {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #0d0d0d 0%,
+                    #080808 100%
+                );
+
+            border-right: 1px solid rgba(255,255,255,0.07);
+
+            padding: 24px 16px;
+
+            display: flex;
+            flex-direction: column;
+
+            z-index: 50;
+        }
+
+        .brand {
+            padding: 8px 12px 30px;
+        }
+
+        .brand-name {
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .brand-name span {
+            color: #666;
+            font-weight: 400;
+        }
+
+        .brand-subtitle {
+            color: #555;
+            font-size: 11px;
+            margin-top: 5px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .menu-title {
+            color: #444;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 0 12px;
+            margin-bottom: 9px;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-button {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            gap: 13px;
+
+            padding: 13px 14px;
+
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 11px;
+
+            color: #777;
+
+            font-size: 14px;
+            text-align: left;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        .nav-button:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.04);
+        }
+
+        .nav-button.active {
+            color: #fff;
+
+            background: rgba(255,255,255,0.07);
+
+            border-color:
+                rgba(255,255,255,0.07);
+
+            box-shadow:
+                inset 3px 0 0 #fff;
+        }
+
+        .nav-icon {
+            width: 21px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+        }
+
+        .store-box {
+            padding: 13px;
+
+            background: rgba(255,255,255,0.035);
+
+            border: 1px solid rgba(255,255,255,0.06);
+
+            border-radius: 13px;
+
+            margin-bottom: 10px;
+        }
+
+        .store-label {
+            color: #555;
+            font-size: 10px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .store-name {
+            font-size: 13px;
+            font-weight: 600;
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .logout-button {
+            width: 100%;
+
+            padding: 12px;
+
+            background: transparent;
+
+            border: 1px solid rgba(255,255,255,0.07);
+
+            color: #777;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .logout-button:hover {
+            color: #fff;
+            border-color: rgba(255,255,255,0.18);
+            background: rgba(255,255,255,0.04);
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            margin-left: 250px;
+
+            width: calc(100% - 250px);
+
+            min-height: 100vh;
+
+            padding: 32px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            margin: 0;
+
+            font-size: 28px;
+
+            letter-spacing: -0.8px;
+        }
+
+        .page-title p {
+            margin: 7px 0 0;
+
+            color: #666;
+
+            font-size: 13px;
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-button {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 11px;
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+            background: #0d0d0d;
+
+            color: #aaa;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .icon-button:hover {
+            color: white;
+            background: #151515;
+        }
+
+
+        /* =========================
+           SECTIONS
+        ========================= */
+
+        .page-section {
+            display: none;
+
+            animation: sectionIn 0.35s ease;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes sectionIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =========================
+           STATS
+        ========================= */
+
+        .stats-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 21px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #101010,
+                    #0a0a0a
+                );
+
+            border: 1px solid rgba(255,255,255,0.07);
+
+            border-radius: 16px;
+
+            min-height: 145px;
+        }
+
+        .stat-card::after {
+            content: "";
+
+            position: absolute;
+
+            width: 130px;
+            height: 130px;
+
+            right: -65px;
+            bottom: -65px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.04);
+
+            filter: blur(10px);
+        }
+
+        .stat-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .stat-title {
+            color: #777;
+            font-size: 12px;
+        }
+
+        .stat-icon {
+            font-size: 18px;
+            opacity: 0.6;
+        }
+
+        .stat-value {
+            margin-top: 20px;
+
+            font-size: 28px;
+
+            font-weight: 700;
+
+            letter-spacing: -1px;
+        }
+
+        .stat-change {
+            margin-top: 7px;
+
+            color: #666;
+
+            font-size: 11px;
+        }
+
+        .stat-change.positive {
+            color: #7dca8b;
+        }
+
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .dashboard-grid {
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1.65fr)
+                minmax(280px, 1fr);
+
+            gap: 18px;
+        }
+
+        .panel {
+            background: #0b0b0b;
+
+            border: 1px solid rgba(255,255,255,0.07);
+
+            border-radius: 16px;
+
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 19px 20px;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.06);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .panel-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .panel-subtitle {
+            color: #555;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .panel-link {
+            border: none;
+            background: none;
+
+            color: #777;
+
+            font-size: 12px;
+
+            cursor: pointer;
+        }
+
+        .panel-link:hover {
+            color: #fff;
+        }
+
+
+        /* =========================
+           ORDERS
+        ========================= */
+
+        .orders-list {
+            padding: 6px 20px 10px;
+        }
+
+        .order-row {
+            display: grid;
+
+            grid-template-columns:
+                1.2fr 1.5fr 100px 100px;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 16px 0;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.05);
+        }
+
+        .order-row:last-child {
+            border-bottom: none;
+        }
+
+        .order-id {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .order-client {
+            color: #777;
+            font-size: 12px;
+        }
+
+        .order-price {
+            font-size: 12px;
+        }
+
+        .status {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            width: fit-content;
+
+            padding: 5px 9px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            background: rgba(255,255,255,0.06);
+
+            color: #aaa;
+        }
+
+        .status.completed {
+            color: #8bd598;
+            background: rgba(100,200,120,0.08);
+        }
+
+        .status.pending {
+            color: #d4c77d;
+            background: rgba(200,190,100,0.08);
+        }
+
+        .status.cancelled {
+            color: #d77777;
+            background: rgba(200,80,80,0.08);
+        }
+
+
+        /* =========================
+           QUICK ACTIONS
+        ========================= */
+
+        .quick-actions {
+            padding: 16px;
+        }
+
+        .quick-action {
+            width: 100%;
+
+            padding: 14px;
+
+            margin-bottom: 9px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            background: rgba(255,255,255,0.025);
+
+            border:
+                1px solid rgba(255,255,255,0.05);
+
+            border-radius: 12px;
+
+            color: #aaa;
+
+            cursor: pointer;
+
+            text-align: left;
+
+            transition: 0.2s;
+        }
+
+        .quick-action:last-child {
+            margin-bottom: 0;
+        }
+
+        .quick-action:hover {
+            background: rgba(255,255,255,0.06);
+            color: white;
+            transform: translateX(3px);
+        }
+
+        .quick-action-icon {
+            width: 35px;
+            height: 35px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            background: rgba(255,255,255,0.06);
+
+            font-size: 15px;
+        }
+
+        .quick-action-text strong {
+            display: block;
+
+            color: #ddd;
+
+            font-size: 12px;
+
+            margin-bottom: 3px;
+        }
+
+        .quick-action-text span {
+            color: #555;
+            font-size: 10px;
+        }
+
+
+        /* =========================
+           TABLE
+        ========================= */
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        .crm-table {
+            width: 100%;
+
+            border-collapse: collapse;
+        }
+
+        .crm-table th {
+            padding: 14px 20px;
+
+            color: #555;
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.7px;
+
+            text-align: left;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.06);
+        }
+
+        .crm-table td {
+            padding: 16px 20px;
+
+            color: #aaa;
+
+            font-size: 12px;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.05);
+        }
+
+        .crm-table tr:hover td {
+            background: rgba(255,255,255,0.015);
+        }
+
+
+        /* =========================
+           TOOLBAR
+        ========================= */
+
+        .toolbar {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 18px;
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 400px;
+
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+
+            height: 44px;
+
+            padding: 0 15px;
+
+            background: #0c0c0c;
+
+            border: 1px solid rgba(255,255,255,0.07);
+
+            border-radius: 11px;
+
+            color: white;
+
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .primary-button {
+            height: 44px;
+
+            padding: 0 17px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            background: white;
+
+            color: black;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .primary-button:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 8px 25px rgba(255,255,255,0.08);
+        }
+
+
+        /* =========================
+           EMPTY
+        ========================= */
+
+        .empty-state {
+            padding: 55px 20px;
+
+            text-align: center;
+
+            color: #555;
+        }
+
+        .empty-icon {
+            font-size: 35px;
+            margin-bottom: 12px;
+            opacity: 0.5;
+        }
+
+        .empty-title {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .empty-text {
+            font-size: 11px;
+        }
+
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal-overlay {
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(0,0,0,0.75);
+
+            backdrop-filter: blur(10px);
+
+            display: none;
+
+            align-items: center;
+            justify-content: center;
+
+            z-index: 100;
+
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 470px;
+
+            background: #101010;
+
+            border:
+                1px solid rgba(255,255,255,0.1);
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            animation: modalIn 0.25s ease;
+        }
+
+        @keyframes modalIn {
+
+            from {
+                opacity: 0;
+                transform: scale(0.96) translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 22px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .close-modal {
+            width: 32px;
+            height: 32px;
+
+            border-radius: 8px;
+
+            border: none;
+
+            background: rgba(255,255,255,0.05);
+
+            color: #888;
+
+            cursor: pointer;
+        }
+
+        .close-modal:hover {
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #777;
+
+            font-size: 11px;
+        }
+
+        .form-control {
+            width: 100%;
+
+            height: 45px;
+
+            padding: 0 13px;
+
+            background: #090909;
+
+            border: 1px solid rgba(255,255,255,0.08);
+
+            border-radius: 10px;
+
+            color: white;
+
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color:
+                rgba(255,255,255,0.25);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            margin-top: 22px;
+        }
+
+        .secondary-button {
+            height: 43px;
+
+            padding: 0 16px;
+
+            background: transparent;
+
+            border:
+                1px solid rgba(255,255,255,0.08);
+
+            border-radius: 10px;
+
+            color: #888;
+
+            cursor: pointer;
+        }
+
+        .secondary-button:hover {
+            color: white;
+        }
+
+
+        /* =========================
+           SETTINGS
+        ========================= */
+
+        .settings-content {
+            padding: 24px;
+            max-width: 650px;
+        }
+
+        .settings-description {
+            color: #555;
+            font-size: 12px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .settings-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.06);
+            margin: 25px 0;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1100px) {
+
+            .stats-grid {
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                width: 70px;
+                padding: 15px 10px;
+            }
+
+            .brand {
+                padding: 8px 4px 25px;
+            }
+
+            .brand-name {
+                font-size: 17px;
+            }
+
+            .brand-subtitle,
+            .menu-title,
+            .nav-text,
+            .store-box {
+                display: none;
+            }
+
+            .nav-button {
+                justify-content: center;
+                padding: 13px;
+            }
+
+            .nav-icon {
+                font-size: 18px;
+            }
+
+            .main {
+                margin-left: 70px;
+                width: calc(100% - 70px);
+                padding: 20px;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .main {
+                padding: 15px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                align-items: flex-start;
+            }
+
+            .page-title h1 {
+                font-size: 23px;
+            }
+
+            .toolbar {
+                flex-direction: column;
+            }
+
+            .search-box {
+                max-width: none;
+            }
+
+            .order-row {
+                grid-template-columns:
+                    1fr 90px;
+                gap: 8px;
+            }
+
+            .order-client {
+                display: none;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="dashboard-wrapper">
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-name">
+                KIZEX <span>CRM</span>
+            </div>
+
+            <div class="brand-subtitle">
+                Management system
+            </div>
+
+        </div>
+
+
+        <div class="menu-title" data-i18n="Управление">
+            Управление
+        </div>
+
+
+        <nav class="nav-menu">
+
+            <button
+                class="nav-button active"
+                data-section="dashboard"
+                onclick="openSection('dashboard', this)"
+            >
+
+                <span class="nav-icon">⌂</span>
+
+                <span
+                    class="nav-text"
+                    data-i18n="Главная"
+                >
+                    Главная
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-button"
+                data-section="orders"
+                onclick="openSection('orders', this)"
+            >
+
+                <span class="nav-icon">▣</span>
+
+                <span
+                    class="nav-text"
+                    data-i18n="Заказы"
+                >
+                    Заказы
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-button"
+                data-section="clients"
+                onclick="openSection('clients', this)"
+            >
+
+                <span class="nav-icon">♙</span>
+
+                <span
+                    class="nav-text"
+                    data-i18n="Клиенты"
+                >
+                    Клиенты
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-button"
+                data-section="products"
+                onclick="openSection('products', this)"
+            >
+
+                <span class="nav-icon">◈</span>
+
+                <span
+                    class="nav-text"
+                    data-i18n="Товары"
+                >
+                    Товары
+                </span>
+
+            </button>
+
+
+            <button
+                class="nav-button"
+                data-section="settings"
+                onclick="openSection('settings', this)"
+            >
+
+                <span class="nav-icon">⚙</span>
+
+                <span
+                    class="nav-text"
+                    data-i18n="Настройки"
+                >
+                    Настройки
+                </span>
+
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="store-box">
+
+                <div
+                    class="store-label"
+                    data-i18n="Магазин"
+                >
+                    Магазин
+                </div>
+
+                <div
+                    class="store-name"
+                    id="sidebarStoreName"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <button
+                class="logout-button"
+                onclick="logout()"
+                data-i18n="Выйти"
+            >
+                Выйти
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="main">
+
+
+        <header class="topbar">
+
+            <div class="page-title">
+
+                <h1
+                    id="pageTitle"
+                    data-i18n="Главная"
+                >
+                    Главная
+                </h1>
+
+                <p
+                    id="pageSubtitle"
+                    data-i18n="Управление вашим магазином"
+                >
+                    Управление вашим магазином
+                </p>
+
+            </div>
+
+
+            <div class="top-actions">
+
+                <button
+                    class="icon-button"
+                    onclick="refreshDashboard()"
+                    title="Обновить"
+                >
+                    ↻
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             DASHBOARD
+        ========================= -->
+
+        <section
+            id="section-dashboard"
+            class="page-section active"
+        >
+
+            <div class="stats-grid">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <span
+                            class="stat-title"
+                            data-i18n="Выручка"
+                        >
+                            Выручка
+                        </span>
+
+                        <span class="stat-icon">
+                            ₴
+                        </span>
+
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statRevenue"
+                    >
+                        0 ₴
+                    </div>
+
+                    <div
+                        class="stat-change positive"
+                        data-i18n="За всё время"
+                    >
+                        За всё время
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <span
+                            class="stat-title"
+                            data-i18n="Заказы"
+                        >
+                            Заказы
+                        </span>
+
+                        <span class="stat-icon">
+                            ▣
+                        </span>
+
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statOrders"
+                    >
+                        0
+                    </div>
+
+                    <div
+                        class="stat-change"
+                        data-i18n="Всего заказов"
+                    >
+                        Всего заказов
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <span
+                            class="stat-title"
+                            data-i18n="Клиенты"
+                        >
+                            Клиенты
+                        </span>
+
+                        <span class="stat-icon">
+                            ♙
+                        </span>
+
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statClients"
+                    >
+                        0
+                    </div>
+
+                    <div
+                        class="stat-change"
+                        data-i18n="Клиенты магазина"
+                    >
+                        Клиенты магазина
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-top">
+
+                        <span
+                            class="stat-title"
+                            data-i18n="Товары"
+                        >
+                            Товары
+                        </span>
+
+                        <span class="stat-icon">
+                            ◈
+                        </span>
+
+                    </div>
+
+                    <div
+                        class="stat-value"
+                        id="statProducts"
+                    >
+                        0
+                    </div>
+
+                    <div
+                        class="stat-change"
+                        data-i18n="В каталоге"
+                    >
+                        В каталоге
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <div
+                                class="panel-title"
+                                data-i18n="Последние заказы"
+                            >
+                                Последние заказы
+                            </div>
+
+                            <div
+                                class="panel-subtitle"
+                                data-i18n="Последние операции магазина"
+                            >
+                                Последние операции магазина
+                            </div>
+
+                        </div>
+
+                        <button
+                            class="panel-link"
+                            onclick="openSectionByName('orders')"
+                            data-i18n="Все заказы →"
+                        >
+                            Все заказы →
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="orders-list"
+                        id="recentOrders"
+                    >
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <div
+                                class="panel-title"
+                                data-i18n="Быстрые действия"
+                            >
+                                Быстрые действия
+                            </div>
+
+                            <div
+                                class="panel-subtitle"
+                                data-i18n="Часто используемые функции"
+                            >
+                                Часто используемые функции
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+
+                        <button
+                            class="quick-action"
+                            onclick="openModal('orderModal')"
+                        >
+
+                            <div class="quick-action-icon">
+                                +
+                            </div>
+
+                            <div class="quick-action-text">
+
+                                <strong data-i18n="Новый заказ">
+                                    Новый заказ
+                                </strong>
+
+                                <span data-i18n="Добавить заказ клиента">
+                                    Добавить заказ клиента
+                                </span>
+
+                            </div>
+
+                        </button>
+
+
+                        <button
+                            class="quick-action"
+                            onclick="openModal('clientModal')"
+                        >
+
+                            <div class="quick-action-icon">
+                                ♙
+                            </div>
+
+                            <div class="quick-action-text">
+
+                                <strong data-i18n="Новый клиент">
+                                    Новый клиент
+                                </strong>
+
+                                <span data-i18n="Добавить клиента">
+                                    Добавить клиента
+                                </span>
+
+                            </div>
+
+                        </button>
+
+
+                        <button
+                            class="quick-action"
+                            onclick="openModal('productModal')"
+                        >
+
+                            <div class="quick-action-icon">
+                                ◈
+                            </div>
+
+                            <div class="quick-action-text">
+
+                                <strong data-i18n="Новый товар">
+                                    Новый товар
+                                </strong>
+
+                                <span data-i18n="Добавить товар в каталог">
+                                    Добавить товар в каталог
+                                </span>
+
+                            </div>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ORDERS
+        ========================= -->
+
+        <section
+            id="section-orders"
+            class="page-section"
+        >
+
+            <div class="toolbar">
+
+                <div class="search-box">
+
+                    <input
+                        type="text"
+                        id="orderSearch"
+                        placeholder="Поиск заказа..."
+                        oninput="renderOrders()"
+                    >
+
+                </div>
+
+                <button
+                    class="primary-button"
+                    onclick="openModal('orderModal')"
+                    data-i18n="Новый заказ"
+                >
+                    + Новый заказ
+                </button>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="table-container">
+
+                    <table class="crm-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th data-i18n="Заказ">
+                                    Заказ
+                                </th>
+
+                                <th data-i18n="Клиенты">
+                                    Клиент
+                                </th>
+
+                                <th data-i18n="Сумма">
+                                    Сумма
+                                </th>
+
+                                <th data-i18n="Статус">
+                                    Статус
+                                </th>
+
+                                <th data-i18n="Дата">
+                                    Дата
+                                </th>
+
+                                <th></th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="ordersTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             CLIENTS
+        ========================= -->
+
+        <section
+            id="section-clients"
+            class="page-section"
+        >
+
+            <div class="toolbar">
+
+                <div class="search-box">
+
+                    <input
+                        type="text"
+                        id="clientSearch"
+                        placeholder="Поиск клиента..."
+                        oninput="renderClients()"
+                    >
+
+                </div>
+
+                <button
+                    class="primary-button"
+                    onclick="openModal('clientModal')"
+                >
+                    + <span data-i18n="Новый клиент">Новый клиент</span>
+                </button>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="table-container">
+
+                    <table class="crm-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th data-i18n="Имя">
+                                    Имя
+                                </th>
+
+                                <th data-i18n="Телефон">
+                                    Телефон
+                                </th>
+
+                                <th>
+                                    Email
+                                </th>
+
+                                <th data-i18n="Заказы">
+                                    Заказов
+                                </th>
+
+                                <th></th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="clientsTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PRODUCTS
+        ========================= -->
+
+        <section
+            id="section-products"
+            class="page-section"
+        >
+
+            <div class="toolbar">
+
+                <div class="search-box">
+
+                    <input
+                        type="text"
+                        id="productSearch"
+                        placeholder="Поиск товара..."
+                        oninput="renderProducts()"
+                    >
+
+                </div>
+
+                <button
+                    class="primary-button"
+                    onclick="openModal('productModal')"
+                >
+                    + <span data-i18n="Новый товар">Новый товар</span>
+                </button>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="table-container">
+
+                    <table class="crm-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th data-i18n="Товары">
+                                    Товар
+                                </th>
+
+                                <th data-i18n="Артикул">
+                                    Артикул
+                                </th>
+
+                                <th data-i18n="Цена">
+                                    Цена
+                                </th>
+
+                                <th data-i18n="Остаток">
+                                    Остаток
+                                </th>
+
+                                <th></th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="productsTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             SETTINGS
+        ========================= -->
+
+        <section
+            id="section-settings"
+            class="page-section"
+        >
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <div
+                            class="panel-title"
+                            data-i18n="Настройки магазина"
+                        >
+                            Настройки магазина
+                        </div>
+
+                        <div
+                            class="panel-subtitle"
+                            data-i18n="Основная информация аккаунта"
+                        >
+                            Основная информация аккаунта
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="settings-content">
+
+
+                    <div class="settings-description">
+
+                        Здесь можно изменить основные
+                        настройки вашего магазина.
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label data-i18n="Название магазина">
+                            Название магазина
+                        </label>
+
+                        <input
+                            class="form-control"
+                            id="settingsStoreName"
+                            type="text"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label data-i18n="Язык интерфейса">
+                            Язык интерфейса
+                        </label>
+
+                        <select
+                            class="form-control"
+                            id="settingsLanguage"
+                        >
+
+                            <option value="ru">
+                                🇷🇺 Русский
+                            </option>
+
+                            <option value="uk">
+                                🇺🇦 Українська
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label data-i18n="Валюта магазина">
+                            Валюта магазина
+                        </label>
+
+                        <select
+                            class="form-control"
+                            id="settingsCurrency"
+                        >
+
+                            <option value="UAH">
+                                ₴ UAH — Гривна
+                            </option>
+
+                            <option value="USD">
+                                $ USD — Доллар
+                            </option>
+
+                            <option value="EUR">
+                                € EUR — Евро
+                            </option>
+
+                            <option value="PLN">
+                                zł PLN — Злотый
+                            </option>
+
+                            <option value="GBP">
+                                £ GBP — Фунт
+                            </option>
+
+                            <option value="RUB">
+                                ₽ RUB — Рубль
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="settings-divider"></div>
+
+
+                    <button
+                        class="primary-button"
+                        onclick="saveSettings()"
+                        data-i18n="Сохранить изменения"
+                    >
+                        Сохранить изменения
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================
+     ORDER MODAL
+========================= -->
+
+<div
+    class="modal-overlay"
+    id="orderModal"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div
+                class="modal-title"
+                data-i18n="Новый заказ"
+            >
+                Новый заказ
+            </div>
+
+            <button
+                class="close-modal"
+                onclick="closeModal('orderModal')"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label data-i18n="Клиенты">
+                Клиент
+            </label>
+
+            <input
+                class="form-control"
+                id="orderClient"
+                type="text"
+                placeholder="Имя клиента"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label data-i18n="Сумма">
+                Сумма
+            </label>
+
+            <input
+                class="form-control"
+                id="orderAmount"
+                type="number"
+                placeholder="0"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label data-i18n="Статус">
+                Статус
+            </label>
+
+            <select
+                class="form-control"
+                id="orderStatus"
+            >
+
+                <option value="pending">
+                    В обработке
+                </option>
+
+                <option value="completed">
+                    Выполнен
+                </option>
+
+                <option value="cancelled">
+                    Отменён
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="secondary-button"
+                onclick="closeModal('orderModal')"
+                data-i18n="Отмена"
+            >
+                Отмена
+            </button>
+
+            <button
+                class="primary-button"
+                onclick="addOrder()"
+                data-i18n="Добавить"
+            >
+                Добавить
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     CLIENT MODAL
+========================= -->
+
+<div
+    class="modal-overlay"
+    id="clientModal"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div
+                class="modal-title"
+                data-i18n="Новый клиент"
+            >
+                Новый клиент
+            </div>
+
+            <button
+                class="close-modal"
+                onclick="closeModal('clientModal')"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label data-i18n="Имя">
+                Имя
+            </label>
+
+            <input
+                class="form-control"
+                id="clientName"
+                type="text"
+                placeholder="Имя клиента"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label data-i18n="Телефон">
+                Телефон
+            </label>
+
+            <input
+                class="form-control"
+                id="clientPhone"
+                type="text"
+                placeholder="+380..."
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Email
+            </label>
+
+            <input
+                class="form-control"
+                id="clientEmail"
+                type="email"
+                placeholder="client@email.com"
+            >
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="secondary-button"
+                onclick="closeModal('clientModal')"
+                data-i18n="Отмена"
+            >
+                Отмена
+            </button>
+
+            <button
+                class="primary-button"
+                onclick="addClient()"
+                data-i18n="Добавить"
+            >
+                Добавить
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     PRODUCT MODAL
+========================= -->
+
+<div
+    class="modal-overlay"
+    id="productModal"
+>
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div
+                class="modal-title"
+                data-i18n="Новый товар"
+            >
+                Новый товар
+            </div>
+
+            <button
+                class="close-modal"
+                onclick="closeModal('productModal')"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Название товара
+            </label>
+
+            <input
+                class="form-control"
+                id="productName"
+                type="text"
+                placeholder="Например: Hoodie Black"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label data-i18n="Артикул">
+                Артикул
+            </label>
+
+            <input
+                class="form-control"
+                id="productSku"
+                type="text"
+                placeholder="KZX-001"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label data-i18n="Цена">
+                Цена
+            </label>
+
+            <input
+                class="form-control"
+                id="productPrice"
+                type="number"
+                placeholder="0"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label data-i18n="Остаток">
+                Остаток
+            </label>
+
+            <input
+                class="form-control"
+                id="productStock"
+                type="number"
+                placeholder="0"
+            >
+
+        </div>
+
+
+        <div class="modal-footer">
+
+            <button
+                class="secondary-button"
+                onclick="closeModal('productModal')"
+                data-i18n="Отмена"
+            >
+                Отмена
+            </button>
+
+            <button
+                class="primary-button"
+                onclick="addProduct()"
+                data-i18n="Добавить"
+            >
+                Добавить
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   KIZEX CRM
+   DASHBOARD JAVASCRIPT
+===================================================== */
+
+
+/* =========================
+   STORAGE
+========================= */
+
+const ACCOUNT_KEY = "kizexCRMData";
+const SESSION_KEY = "kizexCRMLogged";
+
+
+function getAccount() {
+
+    const data =
+        localStorage.getItem(ACCOUNT_KEY);
+
+    if (!data) {
+        return null;
+    }
+
+    try {
+        return JSON.parse(data);
+    }
+
+    catch {
+        return null;
+    }
+
+}
+
+
+function saveAccount(account) {
+
+    localStorage.setItem(
+        ACCOUNT_KEY,
+        JSON.stringify(account)
+    );
+
+}
+
+
+/* =========================
+   AUTH
+========================= */
+
+function checkAuth() {
+
+    const logged =
+        localStorage.getItem(SESSION_KEY) === "true" ||
+        sessionStorage.getItem(SESSION_KEY) === "true";
+
+    if (!logged) {
+
+        window.location.href =
+            "index.html";
+
+    }
+
+}
+
+
+checkAuth();
+
+
+function logout() {
+
+    localStorage.removeItem(
+        SESSION_KEY
+    );
+
+    sessionStorage.removeItem(
+        SESSION_KEY
+    );
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+/* =========================
+   TRANSLATIONS
+========================= */
+
+const translations = {
+
+    ru: {
+
+        "Управление": "Управление",
+
+        "Главная": "Главная",
+
+        "Управление вашим магазином":
+            "Управление вашим магазином",
+
+        "Заказы": "Заказы",
+
+        "Все заказы вашего магазина":
+            "Все заказы вашего магазина",
+
+        "Клиенты": "Клиенты",
+
+        "База клиентов":
+            "База клиентов",
+
+        "Товары": "Товары",
+
+        "Каталог вашего магазина":
+            "Каталог вашего магазина",
+
+        "Настройки": "Настройки",
+
+        "Настройки магазина":
+            "Настройки магазина",
+
+        "Магазин": "Магазин",
+
+        "Выйти": "Выйти",
+
+        "Выручка": "Выручка",
+
+        "За всё время":
+            "За всё время",
+
+        "Всего заказов":
+            "Всего заказов",
+
+        "Клиенты магазина":
+            "Клиенты магазина",
+
+        "В каталоге":
+            "В каталоге",
+
+        "Последние заказы":
+            "Последние заказы",
+
+        "Последние операции магазина":
+            "Последние операции магазина",
+
+        "Все заказы →":
+            "Все заказы →",
+
+        "Быстрые действия":
+            "Быстрые действия",
+
+        "Часто используемые функции":
+            "Часто используемые функции",
+
+        "Новый заказ":
+            "Новый заказ",
+
+        "Добавить заказ клиента":
+            "Добавить заказ клиента",
+
+        "Новый клиент":
+            "Новый клиент",
+
+        "Добавить клиента":
+            "Добавить клиента",
+
+        "Новый товар":
+            "Новый товар",
+
+        "Добавить товар в каталог":
+            "Добавить товар в каталог",
+
+        "Поиск заказа...":
+            "Поиск заказа...",
+
+        "Поиск клиента...":
+            "Поиск клиента...",
+
+        "Поиск товара...":
+            "Поиск товара...",
+
+        "Добавить":
+            "Добавить",
+
+        "Отмена":
+            "Отмена",
+
+        "Заказ":
+            "Заказ",
+
+        "Клиент":
+            "Клиент",
+
+        "Имя":
+            "Имя",
+
+        "Телефон":
+            "Телефон",
+
+        "Сумма":
+            "Сумма",
+
+        "Статус":
+            "Статус",
+
+        "Дата":
+            "Дата",
+
+        "Артикул":
+            "Артикул",
+
+        "Цена":
+            "Цена",
+
+        "Остаток":
+            "Остаток",
+
+        "Основная информация аккаунта":
+            "Основная информация аккаунта",
+
+        "Название магазина":
+            "Название магазина",
+
+        "Язык интерфейса":
+            "Язык интерфейса",
+
+        "Валюта магазина":
+            "Валюта магазина",
+
+        "Сохранить изменения":
+            "Сохранить изменения",
+
+        "В обработке":
+            "В обработке",
+
+        "Выполнен":
+            "Выполнен",
+
+        "Отменён":
+            "Отменён",
+
+        "Заказов пока нет":
+            "Заказов пока нет",
+
+        "Добавьте первый заказ":
+            "Добавьте первый заказ",
+
+        "Клиентов пока нет":
+            "Клиентов пока нет",
+
+        "Добавьте первого клиента":
+            "Добавьте первого клиента",
+
+        "Товаров пока нет":
+            "Товаров пока нет",
+
+        "Добавьте первый товар":
+            "Добавьте первый товар"
+
+    },
+
+
+    uk: {
+
+        "Управление":
+            "Керування",
+
+        "Главная":
+            "Головна",
+
+        "Управление вашим магазином":
+            "Керування вашим магазином",
+
+        "Заказы":
+            "Замовлення",
+
+        "Все заказы вашего магазина":
+            "Усі замовлення вашого магазину",
+
+        "Клиенты":
+            "Клієнти",
+
+        "База клиентов":
+            "База клієнтів",
+
+        "Товары":
+            "Товари",
+
+        "Каталог вашего магазина":
+            "Каталог вашого магазину",
+
+        "Настройки":
+            "Налаштування",
+
+        "Настройки магазина":
+            "Налаштування магазину",
+
+        "Магазин":
+            "Магазин",
+
+        "Выйти":
+            "Вийти",
+
+        "Выручка":
+            "Виручка",
+
+        "За всё время":
+            "За весь час",
+
+        "Всего заказов":
+            "Всього замовлень",
+
+        "Клиенты магазина":
+            "Клієнти магазину",
+
+        "В каталоге":
+            "У каталозі",
+
+        "Последние заказы":
+            "Останні замовлення",
+
+        "Последние операции магазина":
+            "Останні операції магазину",
+
+        "Все заказы →":
+            "Усі замовлення →",
+
+        "Быстрые действия":
+            "Швидкі дії",
+
+        "Часто используемые функции":
+            "Функції, які часто використовуються",
+
+        "Новый заказ":
+            "Нове замовлення",
+
+        "Добавить заказ клиента":
+            "Додати замовлення клієнта",
+
+        "Новый клиент":
+            "Новий клієнт",
+
+        "Добавить клиента":
+            "Додати клієнта",
+
+        "Новый товар":
+            "Новий товар",
+
+        "Добавить товар в каталог":
+            "Додати товар до каталогу",
+
+        "Поиск заказа...":
+            "Пошук замовлення...",
+
+        "Поиск клиента...":
+            "Пошук клієнта...",
+
+        "Поиск товара...":
+            "Пошук товару...",
+
+        "Добавить":
+            "Додати",
+
+        "Отмена":
+            "Скасувати",
+
+        "Заказ":
+            "Замовлення",
+
+        "Клиент":
+            "Клієнт",
+
+        "Имя":
+            "Ім'я",
+
+        "Телефон":
+            "Телефон",
+
+        "Сумма":
+            "Сума",
+
+        "Статус":
+            "Статус",
+
+        "Дата":
+            "Дата",
+
+        "Артикул":
+            "Артикул",
+
+        "Цена":
+            "Ціна",
+
+        "Остаток":
+            "Залишок",
+
+        "Основная информация аккаунта":
+            "Основна інформація акаунта",
+
+        "Название магазина":
+            "Назва магазину",
+
+        "Язык интерфейса":
+            "Мова інтерфейсу",
+
+        "Валюта магазина":
+            "Валюта магазину",
+
+        "Сохранить изменения":
+            "Зберегти зміни",
+
+        "В обработке":
+            "В обробці",
+
+        "Выполнен":
+            "Виконано",
+
+        "Отменён":
+            "Скасовано",
+
+        "Заказов пока нет":
+            "Замовлень поки немає",
+
+        "Добавьте первый заказ":
+            "Додайте перше замовлення",
+
+        "Клиентов пока нет":
+            "Клієнтів поки немає",
+
+        "Добавьте первого клиента":
+            "Додайте першого клієнта",
+
+        "Товаров пока нет":
+            "Товарів поки немає",
+
+        "Добавьте первый товар":
+            "Додайте перший товар"
+
+    }
+
+};
+
+
+/* =========================
+   CURRENCY
+========================= */
+
+const currencies = {
+
+    UAH: {
+        symbol: "₴",
+        position: "after"
+    },
+
+    USD: {
+        symbol: "$",
+        position: "before"
+    },
+
+    EUR: {
+        symbol: "€",
+        position: "before"
+    },
+
+    PLN: {
+        symbol: "zł",
+        position: "after"
+    },
+
+    GBP: {
+        symbol: "£",
+        position: "before"
+    },
+
+    RUB: {
+        symbol: "₽",
+        position: "after"
+    }
+
+};
+
+
+/* =========================
+   MONEY
+========================= */
+
+function formatMoney(value) {
+
+    const account =
+        getAccount();
+
+    const currency =
+        account?.currency || "UAH";
+
+    const config =
+        currencies[currency] ||
+        currencies.UAH;
+
+
+    const number =
+        Number(value || 0)
+            .toLocaleString(
+                "uk-UA",
+                {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 2
+                }
+            );
+
+
+    if (config.position === "before") {
+
+        return config.symbol +
+            " " +
+            number;
+
+    }
+
+
+    return number +
+        " " +
+        config.symbol;
+
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+function formatDate(date) {
+
+    if (!date) {
+        return "—";
+    }
+
+    const account =
+        getAccount();
+
+    const language =
+        account?.language === "uk"
+            ? "uk-UA"
+            : "ru-RU";
+
+
+    return new Date(date)
+        .toLocaleDateString(
+            language
+        );
+
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+function statusText(status) {
+
+    const account =
+        getAccount();
+
+    const language =
+        account?.language || "ru";
+
+
+    if (status === "completed") {
+
+        return language === "uk"
+            ? "Виконано"
+            : "Выполнен";
+
+    }
+
+
+    if (status === "cancelled") {
+
+        return language === "uk"
+            ? "Скасовано"
+            : "Отменён";
+
+    }
+
+
+    return language === "uk"
+        ? "В обробці"
+        : "В обработке";
+
+}
+
+
+/* =========================
+   SECTION TITLES
+========================= */
+
+const sectionTitles = {
+
+    dashboard: {
+
+        ru: [
+            "Главная",
+            "Управление вашим магазином"
+        ],
+
+        uk: [
+            "Головна",
+            "Керування вашим магазином"
+        ]
+
+    },
+
+    orders: {
+
+        ru: [
+            "Заказы",
+            "Все заказы вашего магазина"
+        ],
+
+        uk: [
+            "Замовлення",
+            "Усі замовлення вашого магазину"
+        ]
+
+    },
+
+    clients: {
+
+        ru: [
+            "Клиенты",
+            "База клиентов"
+        ],
+
+        uk: [
+            "Клієнти",
+            "База клієнтів"
+        ]
+
+    },
+
+    products: {
+
+        ru: [
+            "Товары",
+            "Каталог вашего магазина"
+        ],
+
+        uk: [
+            "Товари",
+            "Каталог вашого магазину"
+        ]
+
+    },
+
+    settings: {
+
+        ru: [
+            "Настройки",
+            "Настройки магазина"
+        ],
+
+        uk: [
+            "Налаштування",
+            "Налаштування магазину"
+        ]
+
+    }
+
+};
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function openSection(section, button) {
+
+    document
+        .querySelectorAll(".page-section")
+        .forEach(el => {
+
+            el.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    const target =
+        document.getElementById(
+            "section-" + section
+        );
+
+
+    if (target) {
+
+        target.classList.add(
+            "active"
+        );
+
+    }
+
+
+    document
+        .querySelectorAll(".nav-button")
+        .forEach(el => {
+
+            el.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    if (button) {
+
+        button.classList.add(
+            "active"
+        );
+
+    }
+
+
+    updatePageTitle(section);
+
+
+    if (section === "orders") {
+        renderOrders();
+    }
+
+    if (section === "clients") {
+        renderClients();
+    }
+
+    if (section === "products") {
+        renderProducts();
+    }
+
+}
+
+
+function updatePageTitle(section) {
+
+    const account =
+        getAccount();
+
+    const language =
+        account?.language || "ru";
+
+
+    const data =
+        sectionTitles[section]?.[language];
+
+
+    if (!data) return;
+
+
+    document.getElementById(
+        "pageTitle"
+    ).textContent = data[0];
+
+
+    document.getElementById(
+        "pageSubtitle"
+    ).textContent = data[1];
+
+}
+
+
+function openSectionByName(section) {
+
+    const button =
+        document.querySelector(
+            `.nav-button[data-section="${section}"]`
+        );
+
+
+    openSection(
+        section,
+        button
+    );
+
+}
+
+
+/* =========================
+   MODALS
+========================= */
+
+function openModal(id) {
+
+    const modal =
+        document.getElementById(id);
+
+    if (modal) {
+
+        modal.classList.add(
+            "active"
+        );
+
+    }
+
+}
+
+
+function closeModal(id) {
+
+    const modal =
+        document.getElementById(id);
+
+    if (modal) {
+
+        modal.classList.remove(
+            "active"
+        );
+
+    }
+
+}
+
+
+document
+    .querySelectorAll(".modal-overlay")
+    .forEach(overlay => {
+
+        overlay.addEventListener(
+            "click",
+            function(event) {
+
+                if (
+                    event.target ===
+                    overlay
+                ) {
+
+                    overlay.classList.remove(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
+
+    });
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function updateDashboard() {
+
+    const account =
+        getAccount();
+
+    if (!account) return;
+
+
+    const orders =
+        account.orders || [];
+
+    const clients =
+        account.clients || [];
+
+    const products =
+        account.products || [];
+
+
+    const revenue =
+        orders
+            .filter(order =>
+                order.status !== "cancelled"
+            )
+            .reduce(
+                (sum, order) =>
+                    sum +
+                    Number(order.amount || 0),
+                0
+            );
+
+
+    document.getElementById(
+        "statRevenue"
+    ).textContent =
+        formatMoney(revenue);
+
+
+    document.getElementById(
+        "statOrders"
+    ).textContent =
+        orders.length;
+
+
+    document.getElementById(
+        "statClients"
+    ).textContent =
+        clients.length;
+
+
+    document.getElementById(
+        "statProducts"
+    ).textContent =
+        products.length;
+
+
+    renderRecentOrders();
+
+}
+
+
+function renderRecentOrders() {
+
+    const container =
+        document.getElementById(
+            "recentOrders"
+        );
+
+    const account =
+        getAccount();
+
+
+    if (!container || !account) {
+        return;
+    }
+
+
+    const orders =
+        account.orders || [];
+
+
+    const recent =
+        [...orders]
+            .reverse()
+            .slice(0, 6);
+
+
+    if (recent.length === 0) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    ▣
+                </div>
+
+                <div
+                    class="empty-title"
+                    data-i18n="Заказов пока нет"
+                >
+                    Заказов пока нет
+                </div>
+
+                <div
+                    class="empty-text"
+                    data-i18n="Добавьте первый заказ"
+                >
+                    Добавьте первый заказ
+                </div>
+
+            </div>
+
+        `;
+
+        applyTranslationsToDynamicContent();
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        recent.map(order => `
+
+            <div class="order-row">
+
+                <div>
+
+                    <div class="order-id">
+                        ${escapeHtml(order.id)}
+                    </div>
+
+                </div>
+
+                <div class="order-client">
+                    ${escapeHtml(order.client)}
+                </div>
+
+                <div class="order-price">
+                    ${formatMoney(order.amount)}
+                </div>
+
+                <div>
+
+                    <span
+                        class="status ${order.status}"
+                    >
+                        ${statusText(order.status)}
+                    </span>
+
+                </div>
+
+            </div>
+
+        `).join("");
+
+}
+
+
+/* =========================
+   ORDERS
+========================= */
+
+function renderOrders() {
+
+    const table =
+        document.getElementById(
+            "ordersTable"
+        );
+
+    if (!table) return;
+
+
+    const account =
+        getAccount();
+
+    if (!account) return;
+
+
+    const search =
+        (
+            document.getElementById(
+                "orderSearch"
+            )?.value || ""
+        )
+        .toLowerCase();
+
+
+    const orders =
+        (account.orders || [])
+            .filter(order => {
+
+                return (
+
+                    String(order.id)
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    String(order.client)
+                        .toLowerCase()
+                        .includes(search)
+
+                );
+
+            })
+            .reverse();
+
+
+    if (orders.length === 0) {
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td colspan="6">
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            ▣
+                        </div>
+
+                        <div class="empty-title">
+                            ${
+                                account.language === "uk"
+                                    ? "Замовлень поки немає"
+                                    : "Заказов пока нет"
+                            }
+                        </div>
+
+                        <div class="empty-text">
+                            ${
+                                account.language === "uk"
+                                    ? "Додайте перше замовлення"
+                                    : "Добавьте первый заказ"
+                            }
+                        </div>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    table.innerHTML =
+        orders.map(order => `
+
+            <tr>
+
+                <td>
+                    <strong>
+                        ${escapeHtml(order.id)}
+                    </strong>
+                </td>
+
+                <td>
+                    ${escapeHtml(order.client)}
+                </td>
+
+                <td>
+                    ${formatMoney(order.amount)}
+                </td>
+
+                <td>
+
+                    <span
+                        class="status ${order.status}"
+                    >
+                        ${statusText(order.status)}
+                    </span>
+
+                </td>
+
+                <td>
+                    ${formatDate(order.date)}
+                </td>
+
+                <td>
+
+                    <button
+                        class="icon-button"
+                        style="width:34px;height:34px;"
+                        onclick="deleteOrder('${order.id}')"
+                    >
+                        ×
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `).join("");
+
+}
+
+
+function addOrder() {
+
+    const client =
+        document.getElementById(
+            "orderClient"
+        ).value.trim();
+
+
+    const amount =
+        document.getElementById(
+            "orderAmount"
+        ).value;
+
+
+    const status =
+        document.getElementById(
+            "orderStatus"
+        ).value;
+
+
+    const account =
+        getAccount();
+
+
+    if (!client) {
+
+        alert(
+            account?.language === "uk"
+                ? "Введіть ім'я клієнта."
+                : "Введите имя клиента."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        amount === "" ||
+        Number(amount) < 0
+    ) {
+
+        alert(
+            account?.language === "uk"
+                ? "Введіть коректну суму."
+                : "Введите корректную сумму."
+        );
+
+        return;
+
+    }
+
+
+    if (!account.orders) {
+
+        account.orders = [];
+
+    }
+
+
+    const orderNumber =
+        account.orders.length + 1;
+
+
+    const order = {
+
+        id:
+            "#" +
+            String(orderNumber)
+                .padStart(4, "0"),
+
+        client:
+            client,
+
+        amount:
+            Number(amount),
+
+        status:
+            status,
+
+        date:
+            new Date().toISOString()
+
+    };
+
+
+    account.orders.push(
+        order
+    );
+
+
+    saveAccount(account);
+
+
+    document.getElementById(
+        "orderClient"
+    ).value = "";
+
+
+    document.getElementById(
+        "orderAmount"
+    ).value = "";
+
+
+    closeModal(
+        "orderModal"
+    );
+
+
+    updateDashboard();
+
+    renderOrders();
+
+}
+
+
+function deleteOrder(id) {
+
+    const account =
+        getAccount();
+
+
+    const message =
+        account?.language === "uk"
+            ? "Видалити це замовлення?"
+            : "Удалить этот заказ?";
+
+
+    if (!confirm(message)) {
+        return;
+    }
+
+
+    account.orders =
+        (account.orders || [])
+            .filter(order =>
+                order.id !== id
+            );
+
+
+    saveAccount(account);
+
+
+    updateDashboard();
+
+    renderOrders();
+
+}
+
+
+/* =========================
+   CLIENTS
+========================= */
+
+function renderClients() {
+
+    const table =
+        document.getElementById(
+            "clientsTable"
+        );
+
+    if (!table) return;
+
+
+    const account =
+        getAccount();
+
+    if (!account) return;
+
+
+    const search =
+        (
+            document.getElementById(
+                "clientSearch"
+            )?.value || ""
+        )
+        .toLowerCase();
+
+
+    const clients =
+        (account.clients || [])
+            .filter(client => {
+
+                return (
+
+                    String(client.name)
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    String(client.phone)
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    String(client.email)
+                        .toLowerCase()
+                        .includes(search)
+
+                );
+
+            });
+
+
+    if (clients.length === 0) {
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td colspan="5">
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            ♙
+                        </div>
+
+                        <div class="empty-title">
+
+                            ${
+                                account.language === "uk"
+                                    ? "Клієнтів поки немає"
+                                    : "Клиентов пока нет"
+                            }
+
+                        </div>
+
+                        <div class="empty-text">
+
+                            ${
+                                account.language === "uk"
+                                    ? "Додайте першого клієнта"
+                                    : "Добавьте первого клиента"
+                            }
+
+                        </div>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    table.innerHTML =
+        clients.map(client => `
+
+            <tr>
+
+                <td>
+                    <strong>
+                        ${escapeHtml(client.name)}
+                    </strong>
+                </td>
+
+                <td>
+                    ${escapeHtml(client.phone || "—")}
+                </td>
+
+                <td>
+                    ${escapeHtml(client.email || "—")}
+                </td>
+
+                <td>
+                    ${client.orders || 0}
+                </td>
+
+                <td>
+
+                    <button
+                        class="icon-button"
+                        style="width:34px;height:34px;"
+                        onclick="deleteClient('${client.id}')"
+                    >
+                        ×
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `).join("");
+
+}
+
+
+function addClient() {
+
+    const account =
+        getAccount();
+
+
+    const name =
+        document.getElementById(
+            "clientName"
+        ).value.trim();
+
+
+    const phone =
+        document.getElementById(
+            "clientPhone"
+        ).value.trim();
+
+
+    const email =
+        document.getElementById(
+            "clientEmail"
+        ).value.trim();
+
+
+    if (!name) {
+
+        alert(
+            account?.language === "uk"
+                ? "Введіть ім'я клієнта."
+                : "Введите имя клиента."
+        );
+
+        return;
+
+    }
+
+
+    if (!account.clients) {
+
+        account.clients = [];
+
+    }
+
+
+    const client = {
+
+        id:
+            Date.now().toString(),
+
+        name:
+            name,
+
+        phone:
+            phone,
+
+        email:
+            email,
+
+        orders:
+            0
+
+    };
+
+
+    account.clients.push(
+        client
+    );
+
+
+    saveAccount(account);
+
+
+    document.getElementById(
+        "clientName"
+    ).value = "";
+
+
+    document.getElementById(
+        "clientPhone"
+    ).value = "";
+
+
+    document.getElementById(
+        "clientEmail"
+    ).value = "";
+
+
+    closeModal(
+        "clientModal"
+    );
+
+
+    updateDashboard();
+
+    renderClients();
+
+}
+
+
+function deleteClient(id) {
+
+    const account =
+        getAccount();
+
+
+    const message =
+        account?.language === "uk"
+            ? "Видалити клієнта?"
+            : "Удалить клиента?";
+
+
+    if (!confirm(message)) {
+        return;
+    }
+
+
+    account.clients =
+        (account.clients || [])
+            .filter(client =>
+                client.id !== id
+            );
+
+
+    saveAccount(account);
+
+
+    updateDashboard();
+
+    renderClients();
+
+}
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
+function renderProducts() {
+
+    const table =
+        document.getElementById(
+            "productsTable"
+        );
+
+    if (!table) return;
+
+
+    const account =
+        getAccount();
+
+    if (!account) return;
+
+
+    const search =
+        (
+            document.getElementById(
+                "productSearch"
+            )?.value || ""
+        )
+        .toLowerCase();
+
+
+    const products =
+        (account.products || [])
+            .filter(product => {
+
+                return (
+
+                    String(product.name)
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    String(product.sku)
+                        .toLowerCase()
+                        .includes(search)
+
+                );
+
+            });
+
+
+    if (products.length === 0) {
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td colspan="5">
+
+                    <div class="empty-state">
+
+                        <div class="empty-icon">
+                            ◈
+                        </div>
+
+                        <div class="empty-title">
+
+                            ${
+                                account.language === "uk"
+                                    ? "Товарів поки немає"
+                                    : "Товаров пока нет"
+                            }
+
+                        </div>
+
+                        <div class="empty-text">
+
+                            ${
+                                account.language === "uk"
+                                    ? "Додайте перший товар"
+                                    : "Добавьте первый товар"
+                            }
+
+                        </div>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    table.innerHTML =
+        products.map(product => `
+
+            <tr>
+
+                <td>
+                    <strong>
+                        ${escapeHtml(product.name)}
+                    </strong>
+                </td>
+
+                <td>
+                    ${escapeHtml(product.sku || "—")}
+                </td>
+
+                <td>
+                    ${formatMoney(product.price)}
+                </td>
+
+                <td>
+                    ${product.stock}
+                </td>
+
+                <td>
+
+                    <button
+                        class="icon-button"
+                        style="width:34px;height:34px;"
+                        onclick="deleteProduct('${product.id}')"
+                    >
+                        ×
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `).join("");
+
+}
+
+
+function addProduct() {
+
+    const account =
+        getAccount();
+
+
+    const name =
+        document.getElementById(
+            "productName"
+        ).value.trim();
+
+
+    const sku =
+        document.getElementById(
+            "productSku"
+        ).value.trim();
+
+
+    const price =
+        document.getElementById(
+            "productPrice"
+        ).value;
+
+
+    const stock =
+        document.getElementById(
+            "productStock"
+        ).value;
+
+
+    if (!name) {
+
+        alert(
+            account?.language === "uk"
+                ? "Введіть назву товару."
+                : "Введите название товара."
+        );
+
+        return;
+
+    }
+
+
+    if (!account.products) {
+
+        account.products = [];
+
+    }
+
+
+    const product = {
+
+        id:
+            Date.now().toString(),
+
+        name:
+            name,
+
+        sku:
+            sku,
+
+        price:
+            Number(price || 0),
+
+        stock:
+            Number(stock || 0)
+
+    };
+
+
+    account.products.push(
+        product
+    );
+
+
+    saveAccount(account);
+
+
+    document.getElementById(
+        "productName"
+    ).value = "";
+
+
+    document.getElementById(
+        "productSku"
+    ).value = "";
+
+
+    document.getElementById(
+        "productPrice"
+    ).value = "";
+
+
+    document.getElementById(
+        "productStock"
+    ).value = "";
+
+
+    closeModal(
+        "productModal"
+    );
+
+
+    updateDashboard();
+
+    renderProducts();
+
+}
+
+
+function deleteProduct(id) {
+
+    const account =
+        getAccount();
+
+
+    const message =
+        account?.language === "uk"
+            ? "Видалити товар?"
+            : "Удалить товар?";
+
+
+    if (!confirm(message)) {
+        return;
+    }
+
+
+    account.products =
+        (account.products || [])
+            .filter(product =>
+                product.id !== id
+            );
+
+
+    saveAccount(account);
+
+
+    updateDashboard();
+
+    renderProducts();
+
+}
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+function loadSettings() {
+
+    const account =
+        getAccount();
+
+    if (!account) return;
+
+
+    if (!account.language) {
+
+        account.language =
+            "ru";
+
+    }
+
+
+    if (!account.currency) {
+
+        account.currency =
+            "UAH";
+
+    }
+
+
+    saveAccount(account);
+
+
+    const nameInput =
+        document.getElementById(
+            "settingsStoreName"
+        );
+
+
+    const languageInput =
+        document.getElementById(
+            "settingsLanguage"
+        );
+
+
+    const currencyInput =
+        document.getElementById(
+            "settingsCurrency"
+        );
+
+
+    if (nameInput) {
+
+        nameInput.value =
+            account.storeName || "";
+
+    }
+
+
+    if (languageInput) {
+
+        languageInput.value =
+            account.language;
+
+    }
+
+
+    if (currencyInput) {
+
+        currencyInput.value =
+            account.currency;
+
+    }
+
+
+    document.getElementById(
+        "sidebarStoreName"
+    ).textContent =
+        account.storeName || "Магазин";
+
+}
+
+
+function saveSettings() {
+
+    const account =
+        getAccount();
+
+    if (!account) return;
+
+
+    const name =
+        document.getElementById(
+            "settingsStoreName"
+        ).value.trim();
+
+
+    const language =
+        document.getElementById(
+            "settingsLanguage"
+        ).value;
+
+
+    const currency =
+        document.getElementById(
+            "settingsCurrency"
+        ).value;
+
+
+    if (name.length < 2) {
+
+        alert(
+            language === "uk"
+                ? "Назва магазину занадто коротка."
+                : "Название магазина слишком короткое."
+        );
+
+        return;
+
+    }
+
+
+    account.storeName =
+        name;
+
+    account.language =
+        language;
+
+    account.currency =
+        currency;
+
+
+    saveAccount(account);
+
+
+    document.getElementById(
+        "sidebarStoreName"
+    ).textContent =
+        name;
+
+
+    applyTranslations();
+
+
+    updateDashboard();
+
+    renderOrders();
+
+    renderClients();
+
+    renderProducts();
+
+
+    updatePageTitle(
+        getCurrentSection()
+    );
+
+
+    alert(
+        language === "uk"
+            ? "Налаштування збережено."
+            : "Настройки сохранены."
+    );
+
+}
+
+
+/* =========================
+   LANGUAGE
+========================= */
+
+function applyTranslations() {
+
+    const account =
+        getAccount();
+
+    if (!account) return;
+
+
+    const language =
+        account.language || "ru";
+
+
+    document.documentElement.lang =
+        language === "uk"
+            ? "uk"
+            : "ru";
+
+
+    document
+        .querySelectorAll(
+            "[data-i18n]"
+        )
+        .forEach(element => {
+
+            const key =
+                element.getAttribute(
+                    "data-i18n"
+                );
+
+
+            if (
+                translations[language] &&
+                translations[language][key]
+            ) {
+
+                element.textContent =
+                    translations[language][key];
+
+            }
+
+        });
+
+
+    const placeholders = {
+
+        "orderSearch": {
+            ru: "Поиск заказа...",
+            uk: "Пошук замовлення..."
+        },
+
+        "clientSearch": {
+            ru: "Поиск клиента...",
+            uk: "Пошук клієнта..."
+        },
+
+        "productSearch": {
+            ru: "Поиск товара...",
+            uk: "Пошук товару..."
+        },
+
+        "orderClient": {
+            ru: "Имя клиента",
+            uk: "Ім'я клієнта"
+        }
+
+    };
+
+
+    Object.keys(placeholders)
+        .forEach(id => {
+
+            const input =
+                document.getElementById(id);
+
+
+            if (!input) return;
+
+
+            input.placeholder =
+                placeholders[id][language];
+
+        });
+
+
+    updatePageTitle(
+        getCurrentSection()
+    );
+
+}
+
+
+function applyTranslationsToDynamicContent() {
+
+    applyTranslations();
+
+}
+
+
+/* =========================
+   CURRENT SECTION
+========================= */
+
+function getCurrentSection() {
+
+    const active =
+        document.querySelector(
+            ".page-section.active"
+        );
+
+
+    if (!active) {
+        return "dashboard";
+    }
+
+
+    return active.id.replace(
+        "section-",
+        ""
+    );
+
+}
+
+
+/* =========================
+   REFRESH
+========================= */
+
+function refreshDashboard() {
+
+    updateDashboard();
+
+    renderOrders();
+
+    renderClients();
+
+    renderProducts();
+
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================
+   SETTINGS LIVE CHANGE
+========================= */
+
+document.addEventListener(
+    "change",
+    function(event) {
+
+        if (
+            event.target.id ===
+            "settingsLanguage"
+        ) {
+
+            const account =
+                getAccount();
+
+
+            if (!account) return;
+
+
+            account.language =
+                event.target.value;
+
+
+            saveAccount(account);
+
+
+            applyTranslations();
+
+            updateDashboard();
+
+            renderOrders();
+
+            renderClients();
+
+            renderProducts();
+
+        }
+
+
+        if (
+            event.target.id ===
+            "settingsCurrency"
+        ) {
+
+            const account =
+                getAccount();
+
+
+            if (!account) return;
+
+
+            account.currency =
+                event.target.value;
+
+
+            saveAccount(account);
+
+
+            updateDashboard();
+
+            renderOrders();
+
+            renderClients();
+
+            renderProducts();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   INITIALIZATION
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const account =
+            getAccount();
+
+
+        if (!account) {
+
+            window.location.href =
+                "index.html";
+
+            return;
+
+        }
+
+
+        loadSettings();
+
+        applyTranslations();
+
+        updateDashboard();
+
+        renderOrders();
+
+        renderClients();
+
+        renderProducts();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
