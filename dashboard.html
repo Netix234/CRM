@@ -20,6 +20,12 @@
             color: #fff;
             font-family: Arial, Helvetica, sans-serif;
             overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        html {
+            min-height: 100%;
+            scroll-behavior: smooth;
         }
 
         button,
@@ -208,12 +214,9 @@
 
         .main {
             margin-left: 250px;
-
             width: calc(100% - 250px);
-
             min-height: 100vh;
-
-            padding: 32px;
+            padding: 32px 32px 70px;
         }
 
         .topbar {
@@ -931,6 +934,814 @@
         }
 
 
+
+        /* =========================
+           EXTENDED SETTINGS
+        ========================= */
+
+        .settings-content {
+            max-width: 980px;
+            padding: 24px;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .settings-card {
+            background: #0b0b0b;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .settings-card.full {
+            grid-column: 1 / -1;
+        }
+
+        .settings-card-head {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .settings-card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: grid;
+            place-items: center;
+            background: rgba(255,255,255,0.055);
+            border: 1px solid rgba(255,255,255,0.07);
+            color: #aaa;
+            font-size: 15px;
+        }
+
+        .settings-card-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #eee;
+        }
+
+        .settings-card-subtitle {
+            margin-top: 3px;
+            font-size: 10px;
+            color: #555;
+        }
+
+        .settings-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            min-height: 58px;
+            padding: 11px 0;
+            border-top: 1px solid rgba(255,255,255,0.055);
+        }
+
+        .settings-option:first-of-type {
+            border-top: 0;
+            padding-top: 0;
+        }
+
+        .settings-option:last-of-type {
+            padding-bottom: 0;
+        }
+
+        .settings-option-info strong {
+            display: block;
+            color: #ddd;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .settings-option-info span {
+            display: block;
+            color: #555;
+            font-size: 10px;
+            line-height: 1.5;
+            margin-top: 4px;
+        }
+
+        .settings-select {
+            width: 220px;
+            min-width: 180px;
+        }
+
+        .settings-switch {
+            position: relative;
+            width: 46px;
+            height: 26px;
+            flex: 0 0 auto;
+        }
+
+        .settings-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .settings-switch-track {
+            position: absolute;
+            inset: 0;
+            border-radius: 999px;
+            background: #171717;
+            border: 1px solid rgba(255,255,255,0.08);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .settings-switch-track::after {
+            content: "";
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            left: 3px;
+            top: 3px;
+            border-radius: 50%;
+            background: #777;
+            transition: 0.2s;
+        }
+
+        .settings-switch input:checked + .settings-switch-track {
+            background: #eee;
+        }
+
+        .settings-switch input:checked + .settings-switch-track::after {
+            transform: translateX(20px);
+            background: #111;
+        }
+
+        .settings-save-row {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .settings-save-note {
+            color: #555;
+            font-size: 10px;
+        }
+
+        /* =========================
+           THEMES
+        ========================= */
+
+        body[data-theme="light"] {
+            background: #f4f4f4;
+            color: #161616;
+        }
+
+        body[data-theme="light"] .sidebar {
+            background: linear-gradient(180deg,#ffffff 0%,#f5f5f5 100%);
+            border-right-color: rgba(0,0,0,0.08);
+        }
+
+        body[data-theme="light"] .brand-name,
+        body[data-theme="light"] .page-title h1,
+        body[data-theme="light"] .settings-card-title,
+        body[data-theme="light"] .settings-option-info strong {
+            color: #171717;
+        }
+
+        body[data-theme="light"] .brand-name span { color:#888; }
+        body[data-theme="light"] .brand-subtitle,
+        body[data-theme="light"] .menu-title,
+        body[data-theme="light"] .page-title p,
+        body[data-theme="light"] .settings-description,
+        body[data-theme="light"] .settings-card-subtitle,
+        body[data-theme="light"] .settings-option-info span {
+            color:#777;
+        }
+
+        body[data-theme="light"] .nav-button { color:#777; }
+        body[data-theme="light"] .nav-button:hover,
+        body[data-theme="light"] .nav-button.active {
+            color:#111;
+            background:#fff;
+            border-color:rgba(0,0,0,0.12);
+        }
+
+        body[data-theme="light"] .store-box,
+        body[data-theme="light"] .logout-button,
+        body[data-theme="light"] .icon-button,
+        body[data-theme="light"] .stat-card,
+        body[data-theme="light"] .panel,
+        body[data-theme="light"] .finance-panel,
+        body[data-theme="light"] .finance-card,
+        body[data-theme="light"] .analytics-panel,
+        body[data-theme="light"] .settings-card {
+            background:#fff;
+            border-color:rgba(0,0,0,0.09);
+        }
+
+        body[data-theme="light"] .stat-label,
+        body[data-theme="light"] .stat-sub,
+        body[data-theme="light"] .panel-subtitle,
+        body[data-theme="light"] .finance-card-label,
+        body[data-theme="light"] .chart-topline,
+        body[data-theme="light"] .settings-save-note {
+            color:#777;
+        }
+
+        body[data-theme="light"] .stat-value,
+        body[data-theme="light"] .finance-card-value,
+        body[data-theme="light"] .finance-extra-item strong {
+            color:#171717;
+        }
+
+        body[data-theme="light"] input,
+        body[data-theme="light"] select,
+        body[data-theme="light"] textarea,
+        body[data-theme="light"] .form-control,
+        body[data-theme="light"] .search-input {
+            background:#fafafa;
+            color:#171717;
+            border-color:rgba(0,0,0,0.11);
+        }
+
+        body[data-theme="light"] .primary-button {
+            background:#171717;
+            color:#fff;
+        }
+
+        body[data-theme="light"] .secondary-button {
+            color:#555;
+            border-color:rgba(0,0,0,0.11);
+        }
+
+        body[data-theme="light"] .settings-switch-track {
+            background:#e7e7e7;
+            border-color:rgba(0,0,0,0.12);
+        }
+
+        body[data-theme="light"] .settings-switch-track::after {
+            background:#888;
+        }
+
+        body[data-theme="light"] .settings-switch input:checked + .settings-switch-track {
+            background:#171717;
+        }
+
+        body[data-theme="light"] .settings-switch input:checked + .settings-switch-track::after {
+            background:#fff;
+        }
+
+        body[data-theme="light"] .settings-card-icon {
+            background:#f4f4f4;
+            border-color:rgba(0,0,0,0.08);
+            color:#555;
+        }
+
+        body[data-theme="light"] .settings-option,
+        body[data-theme="light"] .settings-divider {
+            border-color:rgba(0,0,0,0.08);
+            background-color:transparent;
+        }
+
+        body[data-theme="light"] .chart-bar,
+        body[data-theme="light"] .daily-bar {
+            background:rgba(0,0,0,0.12);
+            border-color:rgba(0,0,0,0.08);
+        }
+
+        body[data-theme="light"] .chart-bar:hover,
+        body[data-theme="light"] .daily-bar:hover {
+            background:rgba(0,0,0,0.25);
+        }
+
+        body[data-theme="graphite"] {
+            background:#171717;
+            color:#f3f3f3;
+        }
+
+        body[data-theme="graphite"] .sidebar {
+            background:linear-gradient(180deg,#202020 0%,#171717 100%);
+        }
+
+        body[data-theme="graphite"] .stat-card,
+        body[data-theme="graphite"] .panel,
+        body[data-theme="graphite"] .finance-panel,
+        body[data-theme="graphite"] .finance-card,
+        body[data-theme="graphite"] .analytics-panel,
+        body[data-theme="graphite"] .settings-card {
+            background:#1e1e1e;
+        }
+
+        body[data-theme="graphite"] .settings-card-icon {
+            background:#292929;
+        }
+
+        body[data-theme="graphite"] .settings-switch-track {
+            background:#2a2a2a;
+        }
+
+        body[data-theme="graphite"] .settings-switch input:checked + .settings-switch-track {
+            background:#ddd;
+        }
+
+        body[data-theme="graphite"] .settings-switch input:checked + .settings-switch-track::after {
+            background:#202020;
+        }
+
+        body.no-animations *,
+        body.no-animations *::before,
+        body.no-animations *::after {
+            animation-duration: 0s !important;
+            animation-delay: 0s !important;
+            transition-duration: 0s !important;
+        }
+
+        body.compact-ui .main {
+            padding-top: 22px;
+            padding-bottom: 40px;
+        }
+
+        body.compact-ui .stats-grid {
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        body.compact-ui .stat-card {
+            padding: 16px;
+        }
+
+        body.compact-ui .finance-panel,
+        body.compact-ui .analytics-grid {
+            margin-top: 12px;
+        }
+
+        body.compact-ui .finance-body,
+        body.compact-ui .analytics-body {
+            padding: 14px;
+        }
+
+        body.compact-ui .settings-card {
+            padding: 16px;
+        }
+
+        /* =========================
+           ANALYTICS
+        ========================= */
+
+        .finance-panel {
+            background: #0b0b0b;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 18px;
+        }
+
+        .finance-header {
+            min-height: 68px;
+        }
+
+        .finance-body {
+            padding: 18px;
+        }
+
+        .finance-periods {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .finance-card {
+            position: relative;
+            min-height: 112px;
+            padding: 16px 17px;
+            background: #101010;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .finance-card::after {
+            content: "";
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            right: -48px;
+            bottom: -48px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.035);
+            filter: blur(5px);
+        }
+
+        .finance-card.featured {
+            border-color: rgba(255,255,255,0.13);
+            background: #121212;
+        }
+
+        .finance-card-label {
+            color: #666;
+            font-size: 10px;
+            margin-bottom: 11px;
+        }
+
+        .finance-card-value {
+            font-size: 22px;
+            line-height: 1.1;
+            font-weight: 700;
+            letter-spacing: -0.4px;
+            white-space: nowrap;
+        }
+
+        .finance-card-bottom {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 9px;
+            color: #555;
+            font-size: 9px;
+        }
+
+        .finance-card-bottom strong {
+            color: #aaa;
+            font-weight: 500;
+        }
+
+        .finance-extra {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            margin-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.055);
+            padding-top: 12px;
+        }
+
+        .finance-extra-item {
+            min-height: 48px;
+            padding: 2px 16px;
+            border-right: 1px solid rgba(255,255,255,0.055);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .finance-extra-item:first-child {
+            padding-left: 3px;
+        }
+
+        .finance-extra-item:last-child {
+            border-right: none;
+        }
+
+        .finance-extra-item span {
+            color: #555;
+            font-size: 9px;
+        }
+
+        .finance-extra-item strong {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .analytics-panel {
+            background: #0b0b0b;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 16px;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .analytics-body {
+            padding: 18px;
+        }
+
+        .chart-body {
+            min-height: 315px;
+        }
+
+        .chart-topline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 26px;
+            margin-bottom: 4px;
+            color: #555;
+            font-size: 10px;
+        }
+
+        .chart-topline strong {
+            color: #aaa;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .revenue-chart {
+            height: 245px;
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            padding: 22px 3px 0;
+            border-top: 1px solid rgba(255,255,255,0.045);
+        }
+
+        .chart-bar-wrap {
+            flex: 1;
+            min-width: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .chart-bar {
+            width: min(30px, 70%);
+            min-height: 2px;
+            border-radius: 6px 6px 2px 2px;
+            background: rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.07);
+            transition: height 0.35s ease, background 0.2s ease;
+            position: relative;
+        }
+
+        .chart-bar:hover {
+            background: rgba(255,255,255,0.32);
+        }
+
+        .chart-bar-label {
+            color: #555;
+            font-size: 8px;
+            white-space: nowrap;
+        }
+
+        .chart-bar-value {
+            position: absolute;
+            left: 50%;
+            bottom: calc(100% + 5px);
+            transform: translateX(-50%);
+            color: #777;
+            font-size: 8px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .chart-bar:hover .chart-bar-value {
+            opacity: 1;
+        }
+
+        .daily-chart {
+            height: 245px;
+            display: flex;
+            align-items: flex-end;
+            gap: 7px;
+            padding: 22px 3px 0;
+            border-top: 1px solid rgba(255,255,255,0.045);
+        }
+
+        .daily-bar-wrap {
+            flex: 1;
+            min-width: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .daily-bar {
+            width: min(24px, 65%);
+            min-height: 2px;
+            border-radius: 5px 5px 2px 2px;
+            background: rgba(255,255,255,0.14);
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: height 0.35s ease;
+            position: relative;
+        }
+
+        .daily-bar:hover {
+            background: rgba(255,255,255,0.28);
+        }
+
+        .daily-bar-label {
+            color: #555;
+            font-size: 8px;
+            white-space: nowrap;
+        }
+
+        .daily-bar-value {
+            position: absolute;
+            left: 50%;
+            bottom: calc(100% + 5px);
+            transform: translateX(-50%);
+            color: #777;
+            font-size: 8px;
+            white-space: nowrap;
+            opacity: 0;
+        }
+
+        .daily-bar:hover .daily-bar-value {
+            opacity: 1;
+        }
+
+        .status-select {
+            min-width: 112px;
+            height: 32px;
+            padding: 0 28px 0 9px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.07);
+            background: #101010;
+            color: #aaa;
+            font-size: 10px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .status-select:focus {
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .status-select.completed {
+            color: #8bd598;
+            background: rgba(100,200,120,0.08);
+        }
+
+        .status-select.pending {
+            color: #d4c77d;
+            background: rgba(200,190,100,0.08);
+        }
+
+        .status-select.cancelled {
+            color: #d77777;
+            background: rgba(200,80,80,0.08);
+        }
+
+        .orders-filters {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            height: 40px;
+            min-width: 145px;
+            padding: 0 34px 0 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: #0b0b0b;
+            color: #aaa;
+            outline: none;
+            font-size: 11px;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .analytics-stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .analytics-period {
+            padding: 14px;
+            background: rgba(255,255,255,0.025);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+        }
+
+        .analytics-period-label {
+            color: #555;
+            font-size: 9px;
+            margin-bottom: 6px;
+        }
+
+        .analytics-period-value {
+            font-size: 15px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .analytics-profit {
+            color: #aaa;
+            font-size: 10px;
+            margin-top: 4px;
+        }
+
+        .daily-chart {
+            height: 210px;
+            display: flex;
+            align-items: flex-end;
+            gap: 5px;
+            padding: 15px 3px 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .daily-bar-wrap {
+            flex: 1;
+            min-width: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .daily-bar {
+            width: 100%;
+            max-width: 24px;
+            min-height: 2px;
+            border-radius: 5px 5px 2px 2px;
+            background: rgba(255,255,255,0.16);
+            border: 1px solid rgba(255,255,255,0.07);
+            position: relative;
+            transition: height .3s ease, background .2s ease;
+        }
+
+        .daily-bar:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .daily-bar-value {
+            position: absolute;
+            left: 50%;
+            bottom: calc(100% + 5px);
+            transform: translateX(-50%);
+            color: #777;
+            font-size: 7px;
+            white-space: nowrap;
+            opacity: 0;
+        }
+
+        .daily-bar:hover .daily-bar-value {
+            opacity: 1;
+        }
+
+        .daily-bar-label {
+            color: #555;
+            font-size: 8px;
+            white-space: nowrap;
+        }
+
+        .cost-hint {
+            color: #555;
+            font-size: 9px;
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 900px) {
+            .finance-periods,
+            .finance-extra {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .finance-extra-item:nth-child(2) {
+                border-right: none;
+            }
+
+            .finance-extra-item:nth-child(n+3) {
+                margin-top: 10px;
+                padding-top: 10px;
+                border-top: 1px solid rgba(255,255,255,0.055);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .finance-periods,
+            .finance-extra {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .finance-extra-item {
+                border-right: none;
+            }
+
+            .finance-extra-item:nth-child(odd) {
+                border-right: 1px solid rgba(255,255,255,0.055);
+            }
+            .orders-filters {
+                width: 100%;
+            }
+            .filter-select {
+                flex: 1;
+            }
+        }
+
         /* =========================
            RESPONSIVE
         ========================= */
@@ -946,6 +1757,20 @@
                 grid-template-columns: 1fr;
             }
 
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 900px) {
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .settings-card.full {
+                grid-column: auto;
+            }
         }
 
         @media (max-width: 800px) {
@@ -1025,7 +1850,273 @@
 
         }
 
+
+        /* =========================
+           STORE SWITCHER / DETAILS / MOBILE POLISH
+        ========================= */
+        .store-switcher-wrap { display:flex; align-items:center; gap:0; height:42px; background:#0d0d0d; border:1px solid rgba(255,255,255,.08); border-radius:12px; overflow:hidden; }
+        .store-switcher-icon { padding-left:12px; color:#777; }
+        .store-switcher { height:40px; min-width:150px; max-width:220px; padding:0 8px; border:0; outline:0; background:transparent; color:#eee; font-weight:600; cursor:pointer; }
+        .store-switcher option { background:#111; color:#fff; }
+        .store-add-button { width:38px; height:40px; border:0; border-left:1px solid rgba(255,255,255,.07); background:transparent; color:#aaa; font-size:20px; cursor:pointer; }
+        .store-add-button:hover { background:rgba(255,255,255,.06); color:#fff; }
+        .modal-subtitle { margin-top:5px; color:#666; font-size:11px; line-height:1.45; max-width:330px; }
+        .modal-kicker { color:#666; font-size:10px; letter-spacing:1.4px; margin-bottom:5px; }
+        .order-details-modal { max-width:560px; }
+        .details-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-bottom:16px; }
+        .details-card { padding:14px; border:1px solid rgba(255,255,255,.07); background:rgba(255,255,255,.025); border-radius:13px; }
+        .details-label { color:#666; font-size:10px; text-transform:uppercase; letter-spacing:.7px; margin-bottom:6px; }
+        .details-value { color:#eee; font-size:14px; font-weight:650; overflow-wrap:anywhere; }
+        .details-total { display:flex; align-items:center; justify-content:space-between; padding:16px; border-radius:14px; background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.025)); border:1px solid rgba(255,255,255,.08); margin-bottom:16px; }
+        .details-total span { color:#777; font-size:11px; }
+        .details-total strong { color:#fff; font-size:21px; }
+        .details-actions { display:flex; gap:8px; flex-wrap:wrap; }
+        .details-button { height:34px; padding:0 11px; display:inline-flex; align-items:center; gap:8px; border-radius:9px; border:1px solid rgba(255,255,255,.08); background:linear-gradient(180deg,#1b1b1b,#111); color:#ddd; cursor:pointer; font-size:11px; font-weight:650; transition:.18s; box-shadow:0 3px 10px rgba(0,0,0,.16); }
+        .details-button:hover { transform:translateY(-1px); border-color:rgba(255,255,255,.18); color:#fff; background:#202020; }
+        .details-button b { font-size:17px; line-height:1; color:#777; }
+        .client-username { color:#aaa; font-weight:600; }
+        .order-actions { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+        @media (max-width:600px) {
+            .top-actions { width:100%; }
+            .store-switcher-wrap { flex:1; min-width:0; }
+            .store-switcher { flex:1; min-width:0; max-width:none; }
+            .top-actions .icon-button { flex:0 0 42px; }
+            .details-grid { grid-template-columns:1fr; }
+            .order-details-modal { max-width:none; padding:18px; }
+            .modal { max-height:calc(100vh - 30px); overflow:auto; padding:18px; }
+            .details-button { height:38px; padding:0 13px; }
+            .table-container { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+            .crm-table { min-width:720px; }
+            .crm-table th, .crm-table td { padding:13px 12px; }
+        }
+
+
+        @media (max-width:600px) {
+            body { padding-bottom:72px; }
+            .sidebar { position:fixed; left:0; right:0; bottom:0; top:auto; width:100%; height:64px; padding:6px 8px; flex-direction:row; border-right:0; border-top:1px solid rgba(255,255,255,.08); background:rgba(10,10,10,.96); backdrop-filter:blur(18px); }
+            .brand, .menu-title, .sidebar-bottom { display:none; }
+            .nav-menu { width:100%; flex-direction:row; justify-content:space-around; align-items:center; gap:3px; }
+            .nav-button { width:20%; height:52px; padding:5px 2px; justify-content:center; border-radius:12px; }
+            .nav-text { display:block; font-size:9px; margin-top:2px; }
+            .nav-icon { font-size:17px; line-height:18px; }
+            .main { margin-left:0; width:100%; padding:12px; }
+            .topbar { gap:10px; flex-direction:column; margin-bottom:20px; }
+            .page-title { width:100%; }
+        }
+
     </style>
+
+<style id="kizex-orders-products-polish">
+/* Clean presentation only — original order/product information is preserved. */
+.orders-table tr,
+.products-table tr { transition: background .18s ease, transform .18s ease; }
+
+.orders-table tbody tr:hover,
+.products-table tbody tr:hover {
+    background: rgba(255,255,255,.035);
+}
+
+.orders-table td,
+.products-table td {
+    vertical-align: middle;
+}
+
+.orders-table img,
+.products-table img {
+    display: block;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.order-details-btn,
+.details-button,
+button[data-order-details] {
+    border: 1px solid rgba(255,255,255,.10) !important;
+    background: rgba(255,255,255,.06) !important;
+    color: inherit !important;
+    border-radius: 10px !important;
+    padding: 8px 12px !important;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .18s ease;
+}
+.order-details-btn:hover,
+.details-button:hover,
+button[data-order-details]:hover {
+    background: rgba(255,255,255,.11) !important;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 700px) {
+    .orders-table-wrap,
+    .products-table-wrap,
+    .table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .orders-table,
+    .products-table {
+        min-width: 680px;
+    }
+}
+</style>
+
+
+<style id="kizex-product-order-upgrade">
+    .product-thumb {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        object-fit: cover;
+        background: rgba(255,255,255,.05);
+        border: 1px solid rgba(255,255,255,.07);
+        display: block;
+    }
+    .product-name-cell {
+        display:flex;
+        align-items:center;
+        gap:11px;
+        min-width:190px;
+    }
+    .product-meta {
+        margin-top:3px;
+        color:#555;
+        font-size:10px;
+    }
+    .tag {
+        display:inline-flex;
+        align-items:center;
+        gap:5px;
+        padding:4px 8px;
+        border-radius:999px;
+        border:1px solid rgba(255,255,255,.07);
+        background:rgba(255,255,255,.035);
+        color:#aaa;
+        font-size:9px;
+        white-space:nowrap;
+    }
+    .stock-badge {
+        display:inline-flex;
+        min-width:28px;
+        justify-content:center;
+        padding:4px 7px;
+        border-radius:999px;
+        background:rgba(255,255,255,.05);
+        color:#ddd;
+        font-size:10px;
+        font-weight:600;
+    }
+    .stock-badge.empty {
+        color:#d77777;
+        background:rgba(200,80,80,.08);
+    }
+    .size-row {
+        display:grid;
+        grid-template-columns:repeat(5,minmax(0,1fr));
+        gap:7px;
+        margin-top:8px;
+    }
+    .size-option {
+        height:38px;
+        border-radius:9px;
+        border:1px solid rgba(255,255,255,.08);
+        background:#090909;
+        color:#aaa;
+        cursor:pointer;
+        font-size:11px;
+        transition:.18s ease;
+    }
+    .size-option:hover,
+    .size-option.selected {
+        color:#fff;
+        border-color:rgba(255,255,255,.25);
+        background:rgba(255,255,255,.08);
+    }
+    .size-hint {
+        color:#555;
+        font-size:10px;
+        line-height:1.45;
+        margin-top:6px;
+    }
+    .photo-upload {
+        display:grid;
+        grid-template-columns:72px 1fr;
+        gap:12px;
+        align-items:center;
+    }
+    .photo-preview {
+        width:72px;
+        height:72px;
+        border-radius:12px;
+        border:1px dashed rgba(255,255,255,.13);
+        background:rgba(255,255,255,.025);
+        display:grid;
+        place-items:center;
+        overflow:hidden;
+        color:#555;
+        font-size:9px;
+        text-align:center;
+    }
+    .photo-preview img {
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        display:block;
+    }
+    .file-input {
+        width:100%;
+        color:#777;
+        font-size:10px;
+    }
+    .file-input::file-selector-button {
+        height:38px;
+        padding:0 12px;
+        margin-right:8px;
+        border:1px solid rgba(255,255,255,.08);
+        border-radius:9px;
+        background:rgba(255,255,255,.05);
+        color:#ddd;
+        cursor:pointer;
+    }
+    .order-product-preview {
+        display:flex;
+        align-items:center;
+        gap:10px;
+        margin-top:8px;
+        padding:10px;
+        border-radius:11px;
+        background:rgba(255,255,255,.025);
+        border:1px solid rgba(255,255,255,.06);
+    }
+    .order-product-preview img {
+        width:40px;
+        height:40px;
+        border-radius:9px;
+        object-fit:cover;
+    }
+    .order-product-preview strong {
+        display:block;
+        color:#ddd;
+        font-size:11px;
+    }
+    .order-product-preview span {
+        display:block;
+        color:#555;
+        font-size:9px;
+        margin-top:3px;
+    }
+    .form-row-2 {
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:12px;
+    }
+    @media (max-width:600px) {
+        .form-row-2 { grid-template-columns:1fr; gap:0; }
+        .size-row { grid-template-columns:repeat(3,minmax(0,1fr)); }
+        .photo-upload { grid-template-columns:1fr; }
+    }
+</style>
+
 </head>
 
 <body>
@@ -1214,15 +2305,12 @@
 
 
             <div class="top-actions">
-
-                <button
-                    class="icon-button"
-                    onclick="refreshDashboard()"
-                    title="Обновить"
-                >
-                    ↻
-                </button>
-
+                <div class="store-switcher-wrap">
+                    <span class="store-switcher-icon">⌂</span>
+                    <select id="storeSwitcher" class="store-switcher" onchange="switchStore(this.value)" aria-label="Выбор магазина"></select>
+                    <button class="store-add-button" onclick="openModal('storeModal')" title="Новый магазин">+</button>
+                </div>
+                <button class="icon-button" onclick="refreshDashboard()" title="Обновить">↻</button>
             </div>
 
         </header>
@@ -1378,153 +2466,157 @@
             </div>
 
 
-            <div class="dashboard-grid">
+            <div class="finance-panel">
 
+                <div class="panel-header finance-header">
+                    <div>
+                        <div class="panel-title" data-i18n="Статистика дохода">Статистика дохода</div>
+                        <div class="panel-subtitle" data-i18n="Выполненные заказы">Выполненные заказы</div>
+                    </div>
+                </div>
 
-                <div class="panel">
+                <div class="finance-body">
 
-                    <div class="panel-header">
-
-                        <div>
-
-                            <div
-                                class="panel-title"
-                                data-i18n="Последние заказы"
-                            >
-                                Последние заказы
+                    <div class="finance-periods">
+                        <div class="finance-card">
+                            <div class="finance-card-label" data-i18n="Сегодня">Сегодня</div>
+                            <div class="finance-card-value" id="analyticsToday">0</div>
+                            <div class="finance-card-bottom">
+                                <span data-i18n="Прибыль">Прибыль</span>
+                                <strong id="analyticsTodayProfit">0</strong>
                             </div>
-
-                            <div
-                                class="panel-subtitle"
-                                data-i18n="Последние операции магазина"
-                            >
-                                Последние операции магазина
-                            </div>
-
                         </div>
 
-                        <button
-                            class="panel-link"
-                            onclick="openSectionByName('orders')"
-                            data-i18n="Все заказы →"
-                        >
-                            Все заказы →
-                        </button>
+                        <div class="finance-card">
+                            <div class="finance-card-label" data-i18n="Неделя">Неделя</div>
+                            <div class="finance-card-value" id="analyticsWeek">0</div>
+                            <div class="finance-card-bottom">
+                                <span data-i18n="Прибыль">Прибыль</span>
+                                <strong id="analyticsWeekProfit">0</strong>
+                            </div>
+                        </div>
 
+                        <div class="finance-card featured">
+                            <div class="finance-card-label" data-i18n="Месяц">Месяц</div>
+                            <div class="finance-card-value" id="analyticsMonth">0</div>
+                            <div class="finance-card-bottom">
+                                <span data-i18n="Прибыль">Прибыль</span>
+                                <strong id="analyticsMonthProfit">0</strong>
+                            </div>
+                        </div>
+
+                        <div class="finance-card">
+                            <div class="finance-card-label" data-i18n="Год">Год</div>
+                            <div class="finance-card-value" id="analyticsYear">0</div>
+                            <div class="finance-card-bottom">
+                                <span data-i18n="Прибыль">Прибыль</span>
+                                <strong id="analyticsYearProfit">0</strong>
+                            </div>
+                        </div>
                     </div>
 
-
-                    <div
-                        class="orders-list"
-                        id="recentOrders"
-                    >
-
+                    <div class="finance-extra">
+                        <div class="finance-extra-item">
+                            <span data-i18n="Средний чек">Средний чек</span>
+                            <strong id="averageOrderValue">0</strong>
+                        </div>
+                        <div class="finance-extra-item">
+                            <span data-i18n="Выполнено заказов">Выполнено заказов</span>
+                            <strong id="monthlyOrders">0</strong>
+                        </div>
+                        <div class="finance-extra-item">
+                            <span data-i18n="Заработано">Заработано за месяц</span>
+                            <strong id="monthlyRevenue">0</strong>
+                        </div>
+                        <div class="finance-extra-item">
+                            <span data-i18n="Прибыль">Прибыль за месяц</span>
+                            <strong id="monthlyProfit">0</strong>
+                        </div>
                     </div>
 
                 </div>
 
+            </div>
+
+            <div class="analytics-grid">
+
+                <div class="analytics-panel chart-panel">
+                    <div class="panel-header">
+                        <div>
+                            <div class="panel-title" data-i18n="Доход за последние 14 дней">Доход за последние 14 дней</div>
+                            <div class="panel-subtitle" data-i18n="Динамика выполненных заказов">Динамика выполненных заказов</div>
+                        </div>
+                    </div>
+                    <div class="analytics-body chart-body">
+                        <div class="chart-topline">
+                            <span data-i18n="Выручка">Выручка</span>
+                            <strong id="dailyChartTotal">0</strong>
+                        </div>
+                        <div class="daily-chart" id="dailyRevenueChart"></div>
+                    </div>
+                </div>
+
+                <div class="analytics-panel chart-panel">
+                    <div class="panel-header">
+                        <div>
+                            <div class="panel-title" data-i18n="Выручка по месяцам">Выручка по месяцам</div>
+                            <div class="panel-subtitle" data-i18n="Текущая статистика">Текущая статистика</div>
+                        </div>
+                    </div>
+                    <div class="analytics-body chart-body">
+                        <div class="chart-topline">
+                            <span data-i18n="Текущий год">Текущий год</span>
+                            <strong id="yearChartTotal">0</strong>
+                        </div>
+                        <div class="revenue-chart" id="revenueChart"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="dashboard-grid">
 
                 <div class="panel">
-
                     <div class="panel-header">
-
                         <div>
-
-                            <div
-                                class="panel-title"
-                                data-i18n="Быстрые действия"
-                            >
-                                Быстрые действия
-                            </div>
-
-                            <div
-                                class="panel-subtitle"
-                                data-i18n="Часто используемые функции"
-                            >
-                                Часто используемые функции
-                            </div>
-
+                            <div class="panel-title" data-i18n="Последние заказы">Последние заказы</div>
+                            <div class="panel-subtitle" data-i18n="Последние операции магазина">Последние операции магазина</div>
                         </div>
-
+                        <button class="panel-link" onclick="openSectionByName('orders')" data-i18n="Все заказы →">Все заказы →</button>
                     </div>
+                    <div class="orders-list" id="recentOrders"></div>
+                </div>
 
-
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <div class="panel-title" data-i18n="Быстрые действия">Быстрые действия</div>
+                            <div class="panel-subtitle" data-i18n="Часто используемые функции">Часто используемые функции</div>
+                        </div>
+                    </div>
                     <div class="quick-actions">
-
-
-                        <button
-                            class="quick-action"
-                            onclick="openModal('orderModal')"
-                        >
-
-                            <div class="quick-action-icon">
-                                +
-                            </div>
-
+                        <button class="quick-action" onclick="openModal('orderModal')">
+                            <div class="quick-action-icon">+</div>
                             <div class="quick-action-text">
-
-                                <strong data-i18n="Новый заказ">
-                                    Новый заказ
-                                </strong>
-
-                                <span data-i18n="Добавить заказ клиента">
-                                    Добавить заказ клиента
-                                </span>
-
+                                <strong data-i18n="Новый заказ">Новый заказ</strong>
+                                <span data-i18n="Добавить заказ клиента">Добавить заказ клиента</span>
                             </div>
-
                         </button>
-
-
-                        <button
-                            class="quick-action"
-                            onclick="openModal('clientModal')"
-                        >
-
-                            <div class="quick-action-icon">
-                                ♙
-                            </div>
-
+                        <button class="quick-action" onclick="openModal('clientModal')">
+                            <div class="quick-action-icon">♙</div>
                             <div class="quick-action-text">
-
-                                <strong data-i18n="Новый клиент">
-                                    Новый клиент
-                                </strong>
-
-                                <span data-i18n="Добавить клиента">
-                                    Добавить клиента
-                                </span>
-
+                                <strong data-i18n="Новый клиент">Новый клиент</strong>
+                                <span data-i18n="Добавить клиента">Добавить клиента</span>
                             </div>
-
                         </button>
-
-
-                        <button
-                            class="quick-action"
-                            onclick="openModal('productModal')"
-                        >
-
-                            <div class="quick-action-icon">
-                                ◈
-                            </div>
-
+                        <button class="quick-action" onclick="openModal('productModal')">
+                            <div class="quick-action-icon">◈</div>
                             <div class="quick-action-text">
-
-                                <strong data-i18n="Новый товар">
-                                    Новый товар
-                                </strong>
-
-                                <span data-i18n="Добавить товар в каталог">
-                                    Добавить товар в каталог
-                                </span>
-
+                                <strong data-i18n="Новый товар">Новый товар</strong>
+                                <span data-i18n="Добавить товар в каталог">Добавить товар в каталог</span>
                             </div>
-
                         </button>
-
                     </div>
-
                 </div>
 
             </div>
@@ -1554,6 +2646,15 @@
 
                 </div>
 
+                <div class="orders-filters">
+                    <select class="filter-select" id="orderStatusFilter" onchange="renderOrders()">
+                        <option value="all">Все статусы</option>
+                        <option value="pending">В обработке</option>
+                        <option value="completed">Выполнен</option>
+                        <option value="cancelled">Отменён</option>
+                    </select>
+                </div>
+
                 <button
                     class="primary-button"
                     onclick="openModal('orderModal')"
@@ -1578,6 +2679,8 @@
                                 <th data-i18n="Заказ">
                                     Заказ
                                 </th>
+
+                                <th>Товар</th>
 
                                 <th data-i18n="Клиенты">
                                     Клиент
@@ -1664,6 +2767,10 @@
                                     Телефон
                                 </th>
 
+                                <th data-i18n="Юзер">
+                                    Юзер
+                                </th>
+
                                 <th>
                                     Email
                                 </th>
@@ -1737,17 +2844,15 @@
                                     Товар
                                 </th>
 
-                                <th data-i18n="Артикул">
-                                    Артикул
-                                </th>
+                                <th>Категория</th>
 
-                                <th data-i18n="Цена">
-                                    Цена
-                                </th>
+                                <th>Цена</th>
 
-                                <th data-i18n="Остаток">
-                                    Остаток
-                                </th>
+                                <th>Себестоимость</th>
+
+                                <th>Размер</th>
+
+                                <th>Остаток</th>
 
                                 <th></th>
 
@@ -1804,104 +2909,113 @@
 
                 <div class="settings-content">
 
-
                     <div class="settings-description">
+                        Управляй внешним видом и поведением CRM. Изменения сохраняются в аккаунте и остаются после обновления страницы.
+                    </div>
 
-                        Здесь можно изменить основные
-                        настройки вашего магазина.
+                    <div class="settings-grid">
+
+                        <div class="settings-card full">
+                            <div class="settings-card-head">
+                                <div class="settings-card-icon">◐</div>
+                                <div>
+                                    <div class="settings-card-title">Внешний вид</div>
+                                    <div class="settings-card-subtitle">Выбери оформление CRM под себя</div>
+                                </div>
+                            </div>
+
+                            <div class="settings-option">
+                                <div class="settings-option-info">
+                                    <strong>Тема интерфейса</strong>
+                                    <span>Чёрная, светлая или графитовая тема.</span>
+                                </div>
+                                <select class="form-control settings-select" id="settingsTheme">
+                                    <option value="dark">Чёрная</option>
+                                    <option value="light">Белая</option>
+                                    <option value="graphite">Графитовая</option>
+                                </select>
+                            </div>
+
+                            <div class="settings-option">
+                                <div class="settings-option-info">
+                                    <strong>Анимации</strong>
+                                    <span>Плавные переходы, появления блоков и интерактивные эффекты.</span>
+                                </div>
+                                <label class="settings-switch">
+                                    <input id="settingsAnimations" type="checkbox" checked>
+                                    <span class="settings-switch-track"></span>
+                                </label>
+                            </div>
+
+                            <div class="settings-option">
+                                <div class="settings-option-info">
+                                    <strong>Плотность интерфейса</strong>
+                                    <span>Компактный режим уменьшает отступы и показывает больше информации.</span>
+                                </div>
+                                <select class="form-control settings-select" id="settingsDensity">
+                                    <option value="comfortable">Обычный</option>
+                                    <option value="compact">Компактный</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="settings-card-head">
+                                <div class="settings-card-icon">⚙</div>
+                                <div>
+                                    <div class="settings-card-title">Магазин</div>
+                                    <div class="settings-card-subtitle">Основная информация</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label data-i18n="Название магазина">Название магазина</label>
+                                <input class="form-control" id="settingsStoreName" type="text">
+                            </div>
+
+                            <div class="form-group">
+                                <label data-i18n="Валюта магазина">Валюта магазина</label>
+                                <select class="form-control" id="settingsCurrency">
+                                    <option value="UAH">₴ UAH — Гривна</option>
+                                    <option value="USD">$ USD — Доллар</option>
+                                    <option value="EUR">€ EUR — Евро</option>
+                                    <option value="PLN">zł PLN — Злотый</option>
+                                    <option value="GBP">£ GBP — Фунт</option>
+                                    <option value="RUB">₽ RUB — Рубль</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="settings-card">
+                            <div class="settings-card-head">
+                                <div class="settings-card-icon">文</div>
+                                <div>
+                                    <div class="settings-card-title">Язык</div>
+                                    <div class="settings-card-subtitle">Язык интерфейса CRM</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label data-i18n="Язык интерфейса">Язык интерфейса</label>
+                                <select class="form-control" id="settingsLanguage">
+                                    <option value="ru">🇷🇺 Русский</option>
+                                    <option value="uk">🇺🇦 Українська</option>
+                                </select>
+                            </div>
+
+                            <div class="settings-description" style="margin:16px 0 0;">
+                                Язык можно изменить в любой момент. Основные разделы и статистика обновятся автоматически.
+                            </div>
+                        </div>
 
                     </div>
 
-
-                    <div class="form-group">
-
-                        <label data-i18n="Название магазина">
-                            Название магазина
-                        </label>
-
-                        <input
-                            class="form-control"
-                            id="settingsStoreName"
-                            type="text"
-                        >
-
+                    <div class="settings-save-row">
+                        <span class="settings-save-note">Все параметры сохраняются локально в аккаунте.</span>
+                        <button class="primary-button" onclick="saveSettings()" data-i18n="Сохранить изменения">
+                            Сохранить изменения
+                        </button>
                     </div>
-
-
-                    <div class="form-group">
-
-                        <label data-i18n="Язык интерфейса">
-                            Язык интерфейса
-                        </label>
-
-                        <select
-                            class="form-control"
-                            id="settingsLanguage"
-                        >
-
-                            <option value="ru">
-                                🇷🇺 Русский
-                            </option>
-
-                            <option value="uk">
-                                🇺🇦 Українська
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label data-i18n="Валюта магазина">
-                            Валюта магазина
-                        </label>
-
-                        <select
-                            class="form-control"
-                            id="settingsCurrency"
-                        >
-
-                            <option value="UAH">
-                                ₴ UAH — Гривна
-                            </option>
-
-                            <option value="USD">
-                                $ USD — Доллар
-                            </option>
-
-                            <option value="EUR">
-                                € EUR — Евро
-                            </option>
-
-                            <option value="PLN">
-                                zł PLN — Злотый
-                            </option>
-
-                            <option value="GBP">
-                                £ GBP — Фунт
-                            </option>
-
-                            <option value="RUB">
-                                ₽ RUB — Рубль
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <div class="settings-divider"></div>
-
-
-                    <button
-                        class="primary-button"
-                        onclick="saveSettings()"
-                        data-i18n="Сохранить изменения"
-                    >
-                        Сохранить изменения
-                    </button>
 
                 </div>
 
@@ -1918,116 +3032,129 @@
      ORDER MODAL
 ========================= -->
 
-<div
-    class="modal-overlay"
-    id="orderModal"
->
-
+<div class="modal-overlay" id="orderModal">
     <div class="modal">
-
         <div class="modal-header">
+            <div>
+                <div class="modal-title" data-i18n="Новый заказ">Новый заказ</div>
+                <div class="modal-subtitle">Выберите товар — цена и себестоимость подставятся автоматически.</div>
+            </div>
+            <button class="close-modal" onclick="closeModal('orderModal')">×</button>
+        </div>
 
-            <div
-                class="modal-title"
-                data-i18n="Новый заказ"
-            >
-                Новый заказ
+        <div class="form-group">
+            <label data-i18n="Товары">Товар</label>
+            <select class="form-control" id="orderProduct" onchange="onOrderProductChange()">
+                <option value="">Выберите товар</option>
+            </select>
+            <div id="orderProductPreview"></div>
+        </div>
+
+        <div class="form-group" id="orderSizeGroup" style="display:none;">
+            <label>Размер</label>
+            <select class="form-control" id="orderSize"></select>
+        </div>
+
+        <div class="form-group">
+            <label data-i18n="Клиенты">Клиент</label>
+            <input class="form-control" id="orderClient" type="text" placeholder="Имя клиента">
+        </div>
+
+        <div class="form-row-2">
+            <div class="form-group">
+                <label data-i18n="Сумма">Сумма</label>
+                <input class="form-control" id="orderAmount" type="number" min="0" placeholder="0">
             </div>
 
-            <button
-                class="close-modal"
-                onclick="closeModal('orderModal')"
-            >
-                ×
-            </button>
-
+            <div class="form-group">
+                <label data-i18n="Себестоимость">Себестоимость</label>
+                <input class="form-control" id="orderCost" type="number" min="0" placeholder="0">
+            </div>
         </div>
 
-
         <div class="form-group">
-
-            <label data-i18n="Клиенты">
-                Клиент
-            </label>
-
-            <input
-                class="form-control"
-                id="orderClient"
-                type="text"
-                placeholder="Имя клиента"
-            >
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label data-i18n="Сумма">
-                Сумма
-            </label>
-
-            <input
-                class="form-control"
-                id="orderAmount"
-                type="number"
-                placeholder="0"
-            >
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label data-i18n="Статус">
-                Статус
-            </label>
-
-            <select
-                class="form-control"
-                id="orderStatus"
-            >
-
-                <option value="pending">
-                    В обработке
-                </option>
-
-                <option value="completed">
-                    Выполнен
-                </option>
-
-                <option value="cancelled">
-                    Отменён
-                </option>
-
+            <label data-i18n="Статус">Статус</label>
+            <select class="form-control" id="orderStatus">
+                <option value="pending">В обработке</option>
+                <option value="completed">Выполнен</option>
+                <option value="cancelled">Отменён</option>
             </select>
-
         </div>
-
 
         <div class="modal-footer">
-
-            <button
-                class="secondary-button"
-                onclick="closeModal('orderModal')"
-                data-i18n="Отмена"
-            >
-                Отмена
-            </button>
-
-            <button
-                class="primary-button"
-                onclick="addOrder()"
-                data-i18n="Добавить"
-            >
-                Добавить
-            </button>
-
+            <button class="secondary-button" onclick="closeModal('orderModal')" data-i18n="Отмена">Отмена</button>
+            <button class="primary-button" onclick="addOrder()" data-i18n="Добавить">Добавить</button>
         </div>
-
     </div>
-
 </div>
 
+<!-- =========================
+     EDIT ORDER MODAL
+========================= -->
+
+<div class="modal-overlay" id="editOrderModal">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title" data-i18n="Редактировать заказ">Редактировать заказ</div>
+            <button class="close-modal" onclick="closeModal('editOrderModal')">×</button>
+        </div>
+
+        <input type="hidden" id="editOrderId">
+
+        <div class="form-group">
+            <label data-i18n="Клиент">Клиент</label>
+            <input class="form-control" id="editOrderClient" type="text">
+        </div>
+
+        <div class="form-group">
+            <label data-i18n="Сумма">Сумма</label>
+            <input class="form-control" id="editOrderAmount" type="number" min="0">
+        </div>
+
+        <div class="form-group">
+            <label data-i18n="Себестоимость">Себестоимость</label>
+            <input class="form-control" id="editOrderCost" type="number" min="0">
+        </div>
+
+        <div class="form-group">
+            <label data-i18n="Статус">Статус</label>
+            <select class="form-control" id="editOrderStatus">
+                <option value="pending">В обработке</option>
+                <option value="completed">Выполнен</option>
+                <option value="cancelled">Отменён</option>
+            </select>
+        </div>
+
+        <div class="modal-footer">
+            <button class="secondary-button" onclick="closeModal('editOrderModal')" data-i18n="Отмена">Отмена</button>
+            <button class="primary-button" onclick="saveEditedOrder()" data-i18n="Сохранить">Сохранить</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================
+     STORE MODAL
+========================= -->
+<div class="modal-overlay" id="storeModal">
+    <div class="modal store-modal">
+        <div class="modal-header">
+            <div>
+                <div class="modal-title">Новый магазин</div>
+                <div class="modal-subtitle">Отдельное рабочее пространство со своей статистикой и данными</div>
+            </div>
+            <button class="close-modal" onclick="closeModal('storeModal')">×</button>
+        </div>
+        <div class="form-group">
+            <label>Название магазина</label>
+            <input class="form-control" id="newStoreName" type="text" placeholder="Например: KIZEX Streetwear">
+        </div>
+        <div class="modal-footer">
+            <button class="secondary-button" onclick="closeModal('storeModal')">Отмена</button>
+            <button class="primary-button" onclick="createStore()">Создать магазин</button>
+        </div>
+    </div>
+</div>
 
 <!-- =========================
      CLIENT MODAL
@@ -2093,6 +3220,22 @@
 
         <div class="form-group">
 
+            <label data-i18n="Юзер">
+                Юзер / Username
+            </label>
+
+            <input
+                class="form-control"
+                id="clientUsername"
+                type="text"
+                placeholder="@username"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
             <label>
                 Email
             </label>
@@ -2136,120 +3279,98 @@
      PRODUCT MODAL
 ========================= -->
 
-<div
-    class="modal-overlay"
-    id="productModal"
->
-
+<div class="modal-overlay" id="productModal">
     <div class="modal">
-
         <div class="modal-header">
+            <div>
+                <div class="modal-title" data-i18n="Новый товар">Новый товар</div>
+                <div class="modal-subtitle">Карточка товара с ценой, себестоимостью, категорией, размером, остатком и фото.</div>
+            </div>
+            <button class="close-modal" onclick="closeModal('productModal')">×</button>
+        </div>
 
-            <div
-                class="modal-title"
-                data-i18n="Новый товар"
-            >
-                Новый товар
+        <div class="form-group">
+            <label>Название товара</label>
+            <input class="form-control" id="productName" type="text" placeholder="Например: Hoodie Black">
+        </div>
+
+        <div class="form-row-2">
+            <div class="form-group">
+                <label>Стоимость товара</label>
+                <input class="form-control" id="productPrice" type="number" min="0" step="0.01" placeholder="0">
             </div>
 
-            <button
-                class="close-modal"
-                onclick="closeModal('productModal')"
-            >
-                ×
-            </button>
-
+            <div class="form-group">
+                <label>Себестоимость товара</label>
+                <input class="form-control" id="productCost" type="number" min="0" step="0.01" placeholder="0">
+            </div>
         </div>
 
+        <div class="form-row-2">
+            <div class="form-group">
+                <label>Категория</label>
+                <select class="form-control" id="productCategory" onchange="onProductCategoryChange()">
+                    <option value="clothing">Одежда</option>
+                    <option value="bag">Сумка</option>
+                    <option value="accessories">Аксессуары</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Артикул</label>
+                <input class="form-control" id="productSku" type="text" placeholder="KZX-001">
+            </div>
+        </div>
+
+        <div class="form-group" id="productSizeGroup">
+            <label>Размер</label>
+            <select class="form-control" id="productSize">
+                <option value="XS">XS</option>
+                <option value="S">S</option>
+                <option value="M" selected>M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+                <option value="XXL">XXL</option>
+                <option value="one-size">One size</option>
+            </select>
+            <div class="size-hint">Для одежды можно указать один размер карточки товара. Если нужны разные размеры одного товара — создавайте отдельную карточку на каждый размер.</div>
+        </div>
 
         <div class="form-group">
-
-            <label>
-                Название товара
-            </label>
-
-            <input
-                class="form-control"
-                id="productName"
-                type="text"
-                placeholder="Например: Hoodie Black"
-            >
-
+            <label>Остаток вещей</label>
+            <input class="form-control" id="productStock" type="number" min="0" step="1" placeholder="0">
         </div>
-
 
         <div class="form-group">
-
-            <label data-i18n="Артикул">
-                Артикул
-            </label>
-
-            <input
-                class="form-control"
-                id="productSku"
-                type="text"
-                placeholder="KZX-001"
-            >
-
+            <label>Фото товара</label>
+            <div class="photo-upload">
+                <div class="photo-preview" id="productPhotoPreview">Нет фото</div>
+                <div>
+                    <input class="file-input" id="productPhoto" type="file" accept="image/*" onchange="previewProductPhoto(event)">
+                    <div class="size-hint">Фото сохраняется локально в CRM вместе с карточкой товара.</div>
+                </div>
+            </div>
         </div>
-
-
-        <div class="form-group">
-
-            <label data-i18n="Цена">
-                Цена
-            </label>
-
-            <input
-                class="form-control"
-                id="productPrice"
-                type="number"
-                placeholder="0"
-            >
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label data-i18n="Остаток">
-                Остаток
-            </label>
-
-            <input
-                class="form-control"
-                id="productStock"
-                type="number"
-                placeholder="0"
-            >
-
-        </div>
-
 
         <div class="modal-footer">
-
-            <button
-                class="secondary-button"
-                onclick="closeModal('productModal')"
-                data-i18n="Отмена"
-            >
-                Отмена
-            </button>
-
-            <button
-                class="primary-button"
-                onclick="addProduct()"
-                data-i18n="Добавить"
-            >
-                Добавить
-            </button>
-
+            <button class="secondary-button" onclick="closeModal('productModal')" data-i18n="Отмена">Отмена</button>
+            <button class="primary-button" onclick="addProduct()" data-i18n="Добавить">Добавить</button>
         </div>
-
     </div>
-
 </div>
 
+<div class="modal-overlay" id="orderDetailsModal">
+    <div class="modal order-details-modal">
+        <div class="modal-header">
+            <div>
+                <div class="modal-kicker">ЗАКАЗ</div>
+                <div class="modal-title" id="detailsOrderTitle">Подробнее</div>
+            </div>
+            <button class="close-modal" onclick="closeModal('orderDetailsModal')">×</button>
+        </div>
+        <div id="orderDetailsContent"></div>
+    </div>
+</div>
 
 <script>
 
@@ -2266,34 +3387,125 @@
 const ACCOUNT_KEY = "kizexCRMData";
 const SESSION_KEY = "kizexCRMLogged";
 
-
-function getAccount() {
-
-    const data =
-        localStorage.getItem(ACCOUNT_KEY);
-
-    if (!data) {
-        return null;
-    }
-
-    try {
-        return JSON.parse(data);
-    }
-
-    catch {
-        return null;
-    }
-
+function readCRMRoot() {
+    const data = localStorage.getItem(ACCOUNT_KEY);
+    if (!data) return null;
+    try { return JSON.parse(data); } catch { return null; }
 }
 
+function blankStore(name) {
+    return {
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
+        storeName: name || "Мой магазин",
+        currency: "UAH",
+        language: "ru",
+        theme: "dark",
+        density: "comfortable",
+        animations: true,
+        orders: [],
+        clients: [],
+        products: []
+    };
+}
+
+function ensureStores() {
+    let root = readCRMRoot();
+    if (!root) return null;
+    if (!Array.isArray(root.stores) || !root.stores.length) {
+        const legacy = { ...root };
+        delete legacy.stores;
+        delete legacy.currentStoreId;
+        const store = blankStore(legacy.storeName || "Мой магазин");
+        Object.assign(store, legacy);
+        store.id = store.id || Date.now().toString(36);
+        root.stores = [store];
+        root.currentStoreId = store.id;
+        localStorage.setItem(ACCOUNT_KEY, JSON.stringify(root));
+    }
+    if (!root.currentStoreId || !root.stores.some(x => String(x.id) === String(root.currentStoreId))) {
+        root.currentStoreId = root.stores[0].id;
+        localStorage.setItem(ACCOUNT_KEY, JSON.stringify(root));
+    }
+    return root;
+}
+
+function getAccount() {
+    const root = ensureStores();
+    if (!root) return null;
+    return root.stores.find(x => String(x.id) === String(root.currentStoreId)) || root.stores[0] || null;
+}
+
+// Все разделы CRM работают только с выбранным магазином.
+function getActiveStoreAccount() {
+    return getAccount();
+}
 
 function saveAccount(account) {
+    const root = ensureStores();
+    if (!root || !account) return;
+    const index = root.stores.findIndex(x => String(x.id) === String(account.id));
+    if (index >= 0) root.stores[index] = account;
+    else root.stores.push(account);
+    root.currentStoreId = account.id;
+    localStorage.setItem(ACCOUNT_KEY, JSON.stringify(root));
+}
 
-    localStorage.setItem(
-        ACCOUNT_KEY,
-        JSON.stringify(account)
-    );
+function getStores() {
+    const root = ensureStores();
+    return root?.stores || [];
+}
 
+function switchStore(id) {
+    const root = ensureStores();
+    if (!root) return;
+    if (!root.stores.some(x => String(x.id) === String(id))) return;
+    root.currentStoreId = id;
+    localStorage.setItem(ACCOUNT_KEY, JSON.stringify(root));
+    location.reload();
+}
+
+function createStore() {
+    const input = document.getElementById("newStoreName");
+    const name = input?.value.trim();
+    const account = getAccount();
+    if (!name) {
+        alert(account?.language === "uk" ? "Введіть назву магазину." : "Введите название магазина.");
+        return;
+    }
+    const root = ensureStores();
+    const store = blankStore(name);
+    store.currency = account?.currency || "UAH";
+    store.language = account?.language || "ru";
+    store.theme = account?.theme || "dark";
+    root.stores.push(store);
+    root.currentStoreId = store.id;
+    localStorage.setItem(ACCOUNT_KEY, JSON.stringify(root));
+    closeModal("storeModal");
+    location.reload();
+}
+
+function deleteCurrentStore() {
+    const root = ensureStores();
+    if (!root || root.stores.length <= 1) {
+        alert(getAccount()?.language === "uk" ? "Має залишитися хоча б один магазин." : "Должен остаться хотя бы один магазин.");
+        return;
+    }
+    const current = getAccount();
+    const ok = confirm(current?.language === "uk" ? `Видалити магазин «${current.storeName || ""}»?` : `Удалить магазин «${current.storeName || ""}»?`);
+    if (!ok) return;
+    root.stores = root.stores.filter(x => String(x.id) !== String(root.currentStoreId));
+    root.currentStoreId = root.stores[0].id;
+    localStorage.setItem(ACCOUNT_KEY, JSON.stringify(root));
+    location.reload();
+}
+
+function renderStoreSwitcher() {
+    const select = document.getElementById("storeSwitcher");
+    if (!select) return;
+    const current = getAccount();
+    select.innerHTML = getStores().map(store => `<option value="${escapeHtml(store.id)}" ${String(store.id) === String(current?.id) ? "selected" : ""}>${escapeHtml(store.storeName || "Магазин")}</option>`).join("");
+    const sidebar = document.getElementById("sidebarStoreName");
+    if (sidebar) sidebar.textContent = current?.storeName || "—";
 }
 
 
@@ -2507,7 +3719,39 @@ const translations = {
             "Товаров пока нет",
 
         "Добавьте первый товар":
-            "Добавьте первый товар"
+            "Добавьте первый товар",
+
+        "Выручка по месяцам":
+            "Выручка по месяцам",
+
+        "Выполненные заказы за текущий год":
+            "Выполненные заказы за текущий год",
+
+        "Этот месяц":
+            "Этот месяц",
+
+        "Текущая статистика":
+            "Текущая статистика",
+
+        "Заработано":
+            "Заработано",
+
+        "Выполнено заказов":
+            "Выполнено заказов",
+
+        "Статистика дохода": "Статистика дохода",
+        "Выполненные заказы": "Выполненные заказы",
+        "Сегодня": "Сегодня",
+        "Неделя": "Неделя",
+        "Месяц": "Месяц",
+        "Год": "Год",
+        "Средний чек": "Средний чек",
+        "Прибыль": "Прибыль",
+        "Себестоимость": "Себестоимость",
+        "Оставь 0, если себестоимость не учитывается.": "Оставь 0, если себестоимость не учитывается.",
+        "Редактировать заказ": "Редактировать заказ",
+        "Сохранить": "Сохранить",
+        "Все статусы": "Все статусы"
 
     },
 
@@ -2686,7 +3930,39 @@ const translations = {
             "Товарів поки немає",
 
         "Добавьте первый товар":
-            "Додайте перший товар"
+            "Додайте перший товар",
+
+        "Выручка по месяцам":
+            "Виручка по місяцях",
+
+        "Выполненные заказы за текущий год":
+            "Виконані замовлення за поточний рік",
+
+        "Этот месяц":
+            "Цей місяць",
+
+        "Текущая статистика":
+            "Поточна статистика",
+
+        "Заработано":
+            "Зароблено",
+
+        "Выполнено заказов":
+            "Виконано замовлень",
+
+        "Статистика дохода": "Статистика доходу",
+        "Выполненные заказы": "Виконані замовлення",
+        "Сегодня": "Сьогодні",
+        "Неделя": "Тиждень",
+        "Месяц": "Місяць",
+        "Год": "Рік",
+        "Средний чек": "Середній чек",
+        "Прибыль": "Прибуток",
+        "Себестоимость": "Собівартість",
+        "Оставь 0, если себестоимость не учитывается.": "Залиш 0, якщо собівартість не враховується.",
+        "Редактировать заказ": "Редагувати замовлення",
+        "Сохранить": "Зберегти",
+        "Все статусы": "Усі статуси"
 
     }
 
@@ -2739,7 +4015,7 @@ const currencies = {
 function formatMoney(value) {
 
     const account =
-        getAccount();
+        getActiveStoreAccount();
 
     const currency =
         account?.currency || "UAH";
@@ -2787,7 +4063,7 @@ function formatDate(date) {
     }
 
     const account =
-        getAccount();
+        getActiveStoreAccount();
 
     const language =
         account?.language === "uk"
@@ -3039,18 +4315,18 @@ function openSectionByName(section) {
 ========================= */
 
 function openModal(id) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
 
-    const modal =
-        document.getElementById(id);
-
-    if (modal) {
-
-        modal.classList.add(
-            "active"
-        );
-
+    if (id === "productModal") {
+        resetProductModal();
     }
 
+    if (id === "orderModal") {
+        populateOrderProductSelect();
+    }
+
+    modal.classList.add("active");
 }
 
 
@@ -3155,6 +4431,7 @@ function updateDashboard() {
 
 
     renderRecentOrders();
+    renderAnalytics();
 
 }
 
@@ -3263,294 +4540,541 @@ function renderRecentOrders() {
 ========================= */
 
 function renderOrders() {
-
-    const table =
-        document.getElementById(
-            "ordersTable"
-        );
-
+    const table = document.getElementById("ordersTable");
     if (!table) return;
 
+    const account = getActiveStoreAccount();
+    if (!account) return;
 
-    const account =
-        getAccount();
+    const search = (document.getElementById("orderSearch")?.value || "").toLowerCase();
+    const statusFilter = document.getElementById("orderStatusFilter")?.value || "all";
+
+    const orders = (account.orders || [])
+        .filter(order => {
+            const matchesStatus = statusFilter === "all" || order.status === statusFilter;
+            const productName = order.productName || "";
+            return matchesStatus && (
+                String(order.id).toLowerCase().includes(search) ||
+                String(order.client || "").toLowerCase().includes(search) ||
+                productName.toLowerCase().includes(search)
+            );
+        })
+        .reverse();
+
+    if (orders.length === 0) {
+        table.innerHTML = `
+            <tr>
+                <td colspan="7">
+                    <div class="empty-state">
+                        <div class="empty-icon">▣</div>
+                        <div class="empty-title">${account.language === "uk" ? "Замовлень поки немає" : "Заказов пока нет"}</div>
+                        <div class="empty-text">${account.language === "uk" ? "Додайте перше замовлення" : "Добавьте первый заказ"}</div>
+                    </div>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    table.innerHTML = orders.map(order => {
+        const product = (account.products || []).find(p => String(p.id) === String(order.productId));
+        const productName = order.productName || product?.name || "—";
+        const productSize = order.size || product?.size || "";
+        const thumb = order.productImage || product?.image || "";
+
+        return `
+            <tr>
+                <td><strong>${escapeHtml(order.id)}</strong></td>
+                <td>
+                    <div class="product-name-cell">
+                        ${thumb ? `<img class="product-thumb" src="${escapeHtml(thumb)}" alt="">` : `<div class="product-thumb">◈</div>`}
+                        <div>
+                            <strong>${escapeHtml(productName)}</strong>
+                            ${productSize ? `<div class="product-meta">Размер: ${escapeHtml(productSize)}</div>` : ""}
+                        </div>
+                    </div>
+                </td>
+                <td>${escapeHtml(order.client || "—")}</td>
+                <td>${formatMoney(order.amount)}</td>
+                <td>
+                    <select
+                        class="status-select ${order.status}"
+                        onchange="updateOrderStatus('${escapeHtml(order.id)}', this.value)"
+                        aria-label="${escapeHtml(statusText(order.status))}"
+                    >
+                        <option value="pending" ${order.status === "pending" ? "selected" : ""}>${account.language === "uk" ? "В обробці" : "В обработке"}</option>
+                        <option value="completed" ${order.status === "completed" ? "selected" : ""}>${account.language === "uk" ? "Виконано" : "Выполнен"}</option>
+                        <option value="cancelled" ${order.status === "cancelled" ? "selected" : ""}>${account.language === "uk" ? "Скасовано" : "Отменён"}</option>
+                    </select>
+                </td>
+                <td>${formatDate(order.date)}</td>
+                <td>
+                    <div class="order-actions">
+                        <button class="icon-button" style="width:34px;height:34px;" onclick="showOrderDetails('${escapeHtml(order.id)}')" title="Подробнее">⌕</button>
+                        <button class="icon-button" style="width:34px;height:34px;" onclick="openEditOrder('${escapeHtml(order.id)}')" title="Редактировать">✎</button>
+                        <button class="icon-button" style="width:34px;height:34px;" onclick="deleteOrder('${escapeHtml(order.id)}')" title="Удалить">×</button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    }).join("");
+}
+
+function showOrderDetails(id) {
+    const account = getActiveStoreAccount();
+    const order = (account?.orders || []).find(item => String(item.id) === String(id));
+    if (!order) return;
+
+    const language = account.language === "uk" ? "uk" : "ru";
+    const status = statusText(order.status);
+    const profit = Number(order.amount || 0) - Number(order.cost || 0);
+    const product = (account.products || []).find(p => String(p.id) === String(order.productId));
+    const productName = order.productName || product?.name || "—";
+    const productSize = order.size || product?.size || "";
+    const content = document.getElementById("orderDetailsContent");
+    const title = document.getElementById("detailsOrderTitle");
+
+    if (title) title.textContent = `${order.id}`;
+
+    if (content) content.innerHTML = `
+        <div class="details-total"><span>${language === "uk" ? "Сума замовлення" : "Сумма заказа"}</span><strong>${formatMoney(order.amount)}</strong></div>
+        <div class="details-grid">
+            <div class="details-card"><div class="details-label">${language === "uk" ? "Товар" : "Товар"}</div><div class="details-value">${escapeHtml(productName)}${productSize ? ` · ${escapeHtml(productSize)}` : ""}</div></div>
+            <div class="details-card"><div class="details-label">${language === "uk" ? "Клієнт" : "Клиент"}</div><div class="details-value">${escapeHtml(order.client || "—")}</div></div>
+            <div class="details-card"><div class="details-label">${language === "uk" ? "Статус" : "Статус"}</div><div class="details-value"><span class="status ${escapeHtml(order.status)}">${escapeHtml(status)}</span></div></div>
+            <div class="details-card"><div class="details-label">${language === "uk" ? "Дата" : "Дата"}</div><div class="details-value">${escapeHtml(formatDate(order.date))}</div></div>
+            <div class="details-card"><div class="details-label">${language === "uk" ? "Собівартість" : "Себестоимость"}</div><div class="details-value">${formatMoney(order.cost || 0)}</div></div>
+            <div class="details-card"><div class="details-label">${language === "uk" ? "Чистий прибуток" : "Чистая прибыль"}</div><div class="details-value">${formatMoney(profit)}</div></div>
+        </div>
+        <div class="details-actions">
+            <button class="secondary-button" onclick="closeModal('orderDetailsModal')">${language === "uk" ? "Закрити" : "Закрыть"}</button>
+            <button class="primary-button" onclick="closeModal('orderDetailsModal');openEditOrder('${String(order.id).replace(/'/g,"\\'")}')">${language === "uk" ? "Редагувати" : "Редактировать"}</button>
+        </div>`;
+    openModal("orderDetailsModal");
+}
+
+function updateOrderStatus(id, status) {
+    const account = getActiveStoreAccount();
+    if (!account) return;
+
+    const order = (account.orders || []).find(item => String(item.id) === String(id));
+    if (!order || order.status === status) return;
+
+    const product = (account.products || []).find(p => String(p.id) === String(order.productId));
+
+    // Если отменяем заказ — возвращаем зарезервированную единицу.
+    if (order.status !== "cancelled" && status === "cancelled" && product) {
+        product.stock = Number(product.stock || 0) + 1;
+    }
+
+    // Если возвращаем отменённый заказ в работу — снова резервируем единицу.
+    if (order.status === "cancelled" && status !== "cancelled" && product) {
+        if (Number(product.stock || 0) <= 0) {
+            alert(account.language === "uk" ? "Немає вільного залишку для повернення замовлення в роботу." : "Нет свободного остатка, чтобы вернуть заказ в работу.");
+            renderOrders();
+            return;
+        }
+        product.stock = Math.max(0, Number(product.stock || 0) - 1);
+    }
+
+    order.status = status;
+    saveAccount(account);
+    updateDashboard();
+    renderOrders();
+    renderProducts();
+}
+
+function openEditOrder(id) {
+    const account = getActiveStoreAccount();
+    if (!account) return;
+
+    const order = (account.orders || []).find(item => String(item.id) === String(id));
+    if (!order) return;
+
+    document.getElementById("editOrderId").value = order.id;
+    document.getElementById("editOrderClient").value = order.client || "";
+    document.getElementById("editOrderAmount").value = order.amount ?? "";
+    document.getElementById("editOrderCost").value = order.cost ?? 0;
+    document.getElementById("editOrderStatus").value = order.status || "pending";
+
+    openModal("editOrderModal");
+}
+
+function saveEditedOrder() {
+    const account = getActiveStoreAccount();
+    if (!account) return;
+
+    const id = document.getElementById("editOrderId").value;
+    const order = (account.orders || []).find(item => String(item.id) === String(id));
+    if (!order) return;
+
+    const client = document.getElementById("editOrderClient").value.trim();
+    const amount = Number(document.getElementById("editOrderAmount").value || 0);
+    const cost = Number(document.getElementById("editOrderCost").value || 0);
+    const status = document.getElementById("editOrderStatus").value;
+
+    if (!client || !Number.isFinite(amount) || amount < 0 || !Number.isFinite(cost) || cost < 0) {
+        alert(account.language === "uk" ? "Перевірте дані замовлення." : "Проверьте данные заказа.");
+        return;
+    }
+
+    const product = (account.products || []).find(p => String(p.id) === String(order.productId));
+
+    if (order.status !== "cancelled" && status === "cancelled" && product) {
+        product.stock = Number(product.stock || 0) + 1;
+    }
+
+    if (order.status === "cancelled" && status !== "cancelled" && product) {
+        if (Number(product.stock || 0) <= 0) {
+            alert(account.language === "uk" ? "Недостатньо залишку." : "Недостаточно остатка.");
+            return;
+        }
+        product.stock = Math.max(0, Number(product.stock || 0) - 1);
+    }
+
+    order.client = client;
+    order.amount = amount;
+    order.cost = cost;
+    order.status = status;
+
+    saveAccount(account);
+    closeModal("editOrderModal");
+    updateDashboard();
+    renderOrders();
+    renderProducts();
+}
+
+function syncClientOrderCounts(account) {
+
+    if (!account || !Array.isArray(account.clients)) return;
+
+    account.clients.forEach(client => {
+        client.orders = (account.orders || []).filter(order =>
+            String(order.client || "").trim().toLowerCase() ===
+            String(client.name || "").trim().toLowerCase()
+        ).length;
+    });
+}
+
+
+/* =========================
+   ANALYTICS
+========================= */
+
+function renderAnalytics() {
+
+    const chart = document.getElementById("revenueChart");
+    const dailyChart = document.getElementById("dailyRevenueChart");
+    const account = getAccount();
 
     if (!account) return;
 
-
-    const search =
-        (
-            document.getElementById(
-                "orderSearch"
-            )?.value || ""
-        )
-        .toLowerCase();
-
-
-    const orders =
-        (account.orders || [])
-            .filter(order => {
-
-                return (
-
-                    String(order.id)
-                        .toLowerCase()
-                        .includes(search)
-
-                    ||
-
-                    String(order.client)
-                        .toLowerCase()
-                        .includes(search)
-
-                );
-
-            })
-            .reverse();
-
-
-    if (orders.length === 0) {
-
-        table.innerHTML = `
-
-            <tr>
-
-                <td colspan="6">
-
-                    <div class="empty-state">
-
-                        <div class="empty-icon">
-                            ▣
-                        </div>
-
-                        <div class="empty-title">
-                            ${
-                                account.language === "uk"
-                                    ? "Замовлень поки немає"
-                                    : "Заказов пока нет"
-                            }
-                        </div>
-
-                        <div class="empty-text">
-                            ${
-                                account.language === "uk"
-                                    ? "Додайте перше замовлення"
-                                    : "Добавьте первый заказ"
-                            }
-                        </div>
-
-                    </div>
-
-                </td>
-
-            </tr>
-
-        `;
-
-        return;
-
-    }
-
-
-    table.innerHTML =
-        orders.map(order => `
-
-            <tr>
-
-                <td>
-                    <strong>
-                        ${escapeHtml(order.id)}
-                    </strong>
-                </td>
-
-                <td>
-                    ${escapeHtml(order.client)}
-                </td>
-
-                <td>
-                    ${formatMoney(order.amount)}
-                </td>
-
-                <td>
-
-                    <span
-                        class="status ${order.status}"
-                    >
-                        ${statusText(order.status)}
-                    </span>
-
-                </td>
-
-                <td>
-                    ${formatDate(order.date)}
-                </td>
-
-                <td>
-
-                    <button
-                        class="icon-button"
-                        style="width:34px;height:34px;"
-                        onclick="deleteOrder('${order.id}')"
-                    >
-                        ×
-                    </button>
-
-                </td>
-
-            </tr>
-
-        `).join("");
-
-}
-
-
-function addOrder() {
-
-    const client =
-        document.getElementById(
-            "orderClient"
-        ).value.trim();
-
-
-    const amount =
-        document.getElementById(
-            "orderAmount"
-        ).value;
-
-
-    const status =
-        document.getElementById(
-            "orderStatus"
-        ).value;
-
-
-    const account =
-        getAccount();
-
-
-    if (!client) {
-
-        alert(
-            account?.language === "uk"
-                ? "Введіть ім'я клієнта."
-                : "Введите имя клиента."
-        );
-
-        return;
-
-    }
-
-
-    if (
-        amount === "" ||
-        Number(amount) < 0
-    ) {
-
-        alert(
-            account?.language === "uk"
-                ? "Введіть коректну суму."
-                : "Введите корректную сумму."
-        );
-
-        return;
-
-    }
-
-
-    if (!account.orders) {
-
-        account.orders = [];
-
-    }
-
-
-    const orderNumber =
-        account.orders.length + 1;
-
-
-    const order = {
-
-        id:
-            "#" +
-            String(orderNumber)
-                .padStart(4, "0"),
-
-        client:
-            client,
-
-        amount:
-            Number(amount),
-
-        status:
-            status,
-
-        date:
-            new Date().toISOString()
-
+    const orders = account.orders || [];
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = now.getMonth();
+    const locale = account.language === "uk" ? "uk-UA" : "ru-RU";
+
+    const completed = orders.filter(order => order.status === "completed" && order.date);
+
+    const toDate = order => {
+        const date = new Date(order.date);
+        return Number.isNaN(date.getTime()) ? null : date;
     };
 
+    const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const weekStart = new Date(startOfDay);
+    weekStart.setDate(weekStart.getDate() - 6);
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    const yearStart = new Date(now.getFullYear(), 0, 1);
 
-    account.orders.push(
-        order
-    );
+    const calcPeriod = start => {
+        const list = completed.filter(order => {
+            const date = toDate(order);
+            return date && date >= start && date <= now;
+        });
+        return {
+            revenue: list.reduce((sum, order) => sum + Number(order.amount || 0), 0),
+            profit: list.reduce((sum, order) => sum + Number(order.amount || 0) - Number(order.cost || 0), 0),
+            count: list.length
+        };
+    };
 
+    const today = calcPeriod(startOfDay);
+    const week = calcPeriod(weekStart);
+    const month = calcPeriod(monthStart);
+    const year = calcPeriod(yearStart);
 
-    saveAccount(account);
+    const setMoney = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = formatMoney(value);
+    };
 
+    const setText = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+    };
 
-    document.getElementById(
-        "orderClient"
-    ).value = "";
+    setMoney("analyticsToday", today.revenue);
+    setMoney("analyticsWeek", week.revenue);
+    setMoney("analyticsMonth", month.revenue);
+    setMoney("analyticsYear", year.revenue);
+    const profitLabel = account.language === "uk" ? "Прибуток" : "Прибыль";
+    const setProfit = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = `${profitLabel}: ${formatMoney(value)}`;
+    };
 
+    setProfit("analyticsTodayProfit", today.profit);
+    setProfit("analyticsWeekProfit", week.profit);
+    setProfit("analyticsMonthProfit", month.profit);
+    setProfit("analyticsYearProfit", year.profit);
+    setMoney("monthlyRevenue", month.revenue);
+    setMoney("monthlyProfit", month.profit);
 
-    document.getElementById(
-        "orderAmount"
-    ).value = "";
+    const yearRevenueTotal = completed
+        .filter(order => {
+            const date = toDate(order);
+            return date && date.getFullYear() === currentYear;
+        })
+        .reduce((sum, order) => sum + Number(order.amount || 0), 0);
 
+    const dailyTotal = completed
+        .filter(order => {
+            const date = toDate(order);
+            return date && date >= weekStart && date <= now;
+        })
+        .reduce((sum, order) => sum + Number(order.amount || 0), 0);
 
-    closeModal(
-        "orderModal"
-    );
+    setMoney("yearChartTotal", yearRevenueTotal);
+    setMoney("dailyChartTotal", dailyTotal);
 
+    setText("monthlyOrders", month.count);
+    setMoney("averageOrderValue", month.count ? month.revenue / month.count : 0);
 
-    updateDashboard();
+    if (chart) {
+        const months = Array.from({ length: 12 }, (_, i) => ({ month: i, revenue: 0 }));
 
-    renderOrders();
+        completed.forEach(order => {
+            const date = toDate(order);
+            if (!date || date.getFullYear() !== currentYear) return;
+            months[date.getMonth()].revenue += Number(order.amount || 0);
+        });
 
+        const maxRevenue = Math.max(...months.map(item => item.revenue), 1);
+
+        chart.innerHTML = months.map(item => {
+            const height = item.revenue > 0 ? Math.max((item.revenue / maxRevenue) * 100, 3) : 2;
+            const monthName = new Date(currentYear, item.month, 1)
+                .toLocaleDateString(locale, { month: "short" })
+                .replace(".", "");
+
+            return `
+                <div class="chart-bar-wrap" title="${escapeHtml(formatMoney(item.revenue))}">
+                    <div class="chart-bar" style="height:${height}%">
+                        <span class="chart-bar-value">${escapeHtml(formatMoney(item.revenue))}</span>
+                    </div>
+                    <div class="chart-bar-label">${escapeHtml(monthName)}</div>
+                </div>
+            `;
+        }).join("");
+    }
+
+    if (dailyChart) {
+        const days = [];
+        for (let i = 13; i >= 0; i--) {
+            const date = new Date(startOfDay);
+            date.setDate(date.getDate() - i);
+            days.push({ date, revenue: 0 });
+        }
+
+        completed.forEach(order => {
+            const date = toDate(order);
+            if (!date) return;
+            const day = days.find(item =>
+                item.date.getFullYear() === date.getFullYear() &&
+                item.date.getMonth() === date.getMonth() &&
+                item.date.getDate() === date.getDate()
+            );
+            if (day) day.revenue += Number(order.amount || 0);
+        });
+
+        const maxDaily = Math.max(...days.map(item => item.revenue), 1);
+
+        dailyChart.innerHTML = days.map(item => {
+            const height = item.revenue > 0 ? Math.max((item.revenue / maxDaily) * 100, 3) : 2;
+            const label = item.date.toLocaleDateString(locale, { day: "2-digit", month: "2-digit" });
+            return `
+                <div class="daily-bar-wrap" title="${escapeHtml(formatMoney(item.revenue))}">
+                    <div class="daily-bar" style="height:${height}%">
+                        <span class="daily-bar-value">${escapeHtml(formatMoney(item.revenue))}</span>
+                    </div>
+                    <div class="daily-bar-label">${escapeHtml(label)}</div>
+                </div>
+            `;
+        }).join("");
+    }
 }
 
 
-function deleteOrder(id) {
+function populateOrderProductSelect(selectedId = "") {
+    const select = document.getElementById("orderProduct");
+    const account = getActiveStoreAccount();
+    if (!select || !account) return;
 
-    const account =
-        getAccount();
+    const products = account.products || [];
+    select.innerHTML = `<option value="">Выберите товар</option>` + products.map(product => {
+        const size = product.category === "clothing" && product.size ? ` · ${product.size}` : "";
+        const stock = Number(product.stock || 0);
+        return `<option value="${escapeHtml(product.id)}" ${String(product.id) === String(selectedId) ? "selected" : ""}>
+            ${escapeHtml(product.name)}${escapeHtml(size)} · ${formatMoney(product.price)} · остаток ${stock}
+        </option>`;
+    }).join("");
 
+    onOrderProductChange();
+}
 
-    const message =
-        account?.language === "uk"
-            ? "Видалити це замовлення?"
-            : "Удалить этот заказ?";
+function onOrderProductChange() {
+    const account = getActiveStoreAccount();
+    const select = document.getElementById("orderProduct");
+    const product = (account?.products || []).find(p => String(p.id) === String(select?.value));
+    const amountInput = document.getElementById("orderAmount");
+    const costInput = document.getElementById("orderCost");
+    const preview = document.getElementById("orderProductPreview");
+    const sizeGroup = document.getElementById("orderSizeGroup");
+    const sizeSelect = document.getElementById("orderSize");
 
-
-    if (!confirm(message)) {
+    if (!product) {
+        if (amountInput) amountInput.value = "";
+        if (costInput) costInput.value = "";
+        if (preview) preview.innerHTML = "";
+        if (sizeGroup) sizeGroup.style.display = "none";
+        if (sizeSelect) sizeSelect.innerHTML = "";
         return;
     }
 
+    if (amountInput) amountInput.value = Number(product.price || 0);
+    if (costInput) costInput.value = Number(product.cost || 0);
 
-    account.orders =
-        (account.orders || [])
-            .filter(order =>
-                order.id !== id
-            );
+    if (preview) {
+        preview.innerHTML = `
+            <div class="order-product-preview">
+                ${product.image ? `<img src="${escapeHtml(product.image)}" alt="">` : `<div class="product-thumb">◈</div>`}
+                <div>
+                    <strong>${escapeHtml(product.name)}</strong>
+                    <span>${escapeHtml(categoryText(product.category))} · Остаток: ${Number(product.stock || 0)}${product.size ? ` · Размер: ${escapeHtml(product.size)}` : ""}</span>
+                </div>
+            </div>
+        `;
+    }
 
+    if (product.category === "clothing") {
+        if (sizeGroup) sizeGroup.style.display = "";
+        if (sizeSelect) {
+            const sizes = Array.isArray(product.sizes) && product.sizes.length ? product.sizes : [product.size || "one-size"];
+            sizeSelect.innerHTML = sizes.map(size => `<option value="${escapeHtml(size)}">${escapeHtml(size)}</option>`).join("");
+            if (product.size) sizeSelect.value = product.size;
+        }
+    } else {
+        if (sizeGroup) sizeGroup.style.display = "none";
+        if (sizeSelect) sizeSelect.innerHTML = "";
+    }
+}
 
+function addOrder() {
+    const account = getActiveStoreAccount();
+    if (!account) return;
+
+    const productId = document.getElementById("orderProduct")?.value || "";
+    const product = (account.products || []).find(p => String(p.id) === String(productId));
+    const client = document.getElementById("orderClient")?.value.trim() || "";
+    const amount = Number(document.getElementById("orderAmount")?.value || 0);
+    const cost = Number(document.getElementById("orderCost")?.value || 0);
+    const status = document.getElementById("orderStatus")?.value || "pending";
+    const size = product?.category === "clothing" ? (document.getElementById("orderSize")?.value || product.size || "") : "";
+
+    if (!product) {
+        alert(account.language === "uk" ? "Оберіть товар." : "Выберите товар.");
+        return;
+    }
+
+    if (!client) {
+        alert(account.language === "uk" ? "Введіть ім'я клієнта." : "Введите имя клиента.");
+        return;
+    }
+
+    if (!Number.isFinite(amount) || amount < 0 || !Number.isFinite(cost) || cost < 0) {
+        alert(account.language === "uk" ? "Введіть коректну суму." : "Введите корректную сумму.");
+        return;
+    }
+
+    if (Number(product.stock || 0) <= 0) {
+        alert(account.language === "uk" ? "Цього товару немає в залишку." : "Этого товара нет в остатке.");
+        return;
+    }
+
+    if (!account.orders) account.orders = [];
+
+    const orderNumber = account.orders.length + 1;
+    const order = {
+        id: "#" + String(orderNumber).padStart(4, "0"),
+        productId: product.id,
+        productName: product.name,
+        productImage: product.image || "",
+        productCategory: product.category || "",
+        size,
+        client,
+        amount,
+        cost,
+        status,
+        date: new Date().toISOString()
+    };
+
+    // Заказ в работе резервирует одну единицу товара.
+    // Отменённый заказ не забирает товар из остатка.
+    if (status !== "cancelled") {
+        product.stock = Math.max(0, Number(product.stock || 0) - 1);
+    }
+
+    account.orders.push(order);
+    syncClientOrderCounts(account);
     saveAccount(account);
 
+    document.getElementById("orderProduct").value = "";
+    document.getElementById("orderClient").value = "";
+    document.getElementById("orderAmount").value = "";
+    document.getElementById("orderCost").value = "";
+    document.getElementById("orderStatus").value = "pending";
+    if (document.getElementById("orderSize")) document.getElementById("orderSize").innerHTML = "";
+    if (document.getElementById("orderSizeGroup")) document.getElementById("orderSizeGroup").style.display = "none";
+    if (document.getElementById("orderProductPreview")) document.getElementById("orderProductPreview").innerHTML = "";
 
+    closeModal("orderModal");
     updateDashboard();
-
     renderOrders();
+    renderProducts();
+}
 
+function deleteOrder(id) {
+    const account = getActiveStoreAccount();
+    if (!account) return;
+
+    const message = account.language === "uk" ? "Видалити це замовлення?" : "Удалить этот заказ?";
+    if (!confirm(message)) return;
+
+    const order = (account.orders || []).find(item => String(item.id) === String(id));
+    if (order && order.status !== "cancelled" && order.productId) {
+        const product = (account.products || []).find(p => String(p.id) === String(order.productId));
+        if (product) product.stock = Number(product.stock || 0) + 1;
+    }
+
+    account.orders = (account.orders || []).filter(order => String(order.id) !== String(id));
+
+    syncClientOrderCounts(account);
+    saveAccount(account);
+    updateDashboard();
+    renderOrders();
+    renderProducts();
 }
 
 
@@ -3605,6 +5129,12 @@ function renderClients() {
                         .toLowerCase()
                         .includes(search)
 
+                    ||
+
+                    String(client.username || "")
+                        .toLowerCase()
+                        .includes(search)
+
                 );
 
             });
@@ -3616,7 +5146,7 @@ function renderClients() {
 
             <tr>
 
-                <td colspan="5">
+                <td colspan="6">
 
                     <div class="empty-state">
 
@@ -3673,6 +5203,10 @@ function renderClients() {
                 </td>
 
                 <td>
+                    <span class="client-username">${escapeHtml(client.username || "—")}</span>
+                </td>
+
+                <td>
                     ${escapeHtml(client.email || "—")}
                 </td>
 
@@ -3717,6 +5251,9 @@ function addClient() {
         ).value.trim();
 
 
+    const username =
+        document.getElementById("clientUsername")?.value.trim() || "";
+
     const email =
         document.getElementById(
             "clientEmail"
@@ -3754,6 +5291,9 @@ function addClient() {
         phone:
             phone,
 
+        username:
+            username,
+
         email:
             email,
 
@@ -3780,6 +5320,10 @@ function addClient() {
         "clientPhone"
     ).value = "";
 
+
+    if (document.getElementById("clientUsername")) {
+        document.getElementById("clientUsername").value = "";
+    }
 
     document.getElementById(
         "clientEmail"
@@ -3836,282 +5380,195 @@ function deleteClient(id) {
    PRODUCTS
 ========================= */
 
+function categoryText(category) {
+    const map = {
+        clothing: "Одежда",
+        bag: "Сумка",
+        accessories: "Аксессуары"
+    };
+    return map[category] || "Другое";
+}
+
 function renderProducts() {
-
-    const table =
-        document.getElementById(
-            "productsTable"
-        );
-
+    const table = document.getElementById("productsTable");
     if (!table) return;
 
-
-    const account =
-        getAccount();
-
+    const account = getActiveStoreAccount();
     if (!account) return;
 
+    const search = (document.getElementById("productSearch")?.value || "").toLowerCase();
 
-    const search =
-        (
-            document.getElementById(
-                "productSearch"
-            )?.value || ""
-        )
-        .toLowerCase();
+    const products = (account.products || []).filter(product => {
+        const haystack = [
+            product.name,
+            product.sku,
+            categoryText(product.category),
+            product.size
+        ].map(value => String(value || "").toLowerCase());
 
-
-    const products =
-        (account.products || [])
-            .filter(product => {
-
-                return (
-
-                    String(product.name)
-                        .toLowerCase()
-                        .includes(search)
-
-                    ||
-
-                    String(product.sku)
-                        .toLowerCase()
-                        .includes(search)
-
-                );
-
-            });
-
+        return haystack.some(value => value.includes(search));
+    });
 
     if (products.length === 0) {
-
         table.innerHTML = `
-
             <tr>
-
-                <td colspan="5">
-
+                <td colspan="7">
                     <div class="empty-state">
-
-                        <div class="empty-icon">
-                            ◈
-                        </div>
-
-                        <div class="empty-title">
-
-                            ${
-                                account.language === "uk"
-                                    ? "Товарів поки немає"
-                                    : "Товаров пока нет"
-                            }
-
-                        </div>
-
-                        <div class="empty-text">
-
-                            ${
-                                account.language === "uk"
-                                    ? "Додайте перший товар"
-                                    : "Добавьте первый товар"
-                            }
-
-                        </div>
-
+                        <div class="empty-icon">◈</div>
+                        <div class="empty-title">${account.language === "uk" ? "Товарів поки немає" : "Товаров пока нет"}</div>
+                        <div class="empty-text">${account.language === "uk" ? "Додайте перший товар" : "Добавьте первый товар"}</div>
                     </div>
-
                 </td>
-
             </tr>
-
         `;
-
         return;
-
     }
 
+    table.innerHTML = products.map(product => {
+        const stock = Number(product.stock || 0);
+        const category = categoryText(product.category);
+        const size = product.category === "clothing" ? (product.size || "—") : "—";
 
-    table.innerHTML =
-        products.map(product => `
-
+        return `
             <tr>
-
                 <td>
-                    <strong>
-                        ${escapeHtml(product.name)}
-                    </strong>
+                    <div class="product-name-cell">
+                        ${product.image ? `<img class="product-thumb" src="${escapeHtml(product.image)}" alt="">` : `<div class="product-thumb">◈</div>`}
+                        <div>
+                            <strong>${escapeHtml(product.name)}</strong>
+                            <div class="product-meta">${escapeHtml(product.sku || "Без артикула")}</div>
+                        </div>
+                    </div>
                 </td>
-
+                <td><span class="tag">${escapeHtml(category)}</span></td>
+                <td>${formatMoney(product.price)}</td>
+                <td>${formatMoney(product.cost || 0)}</td>
+                <td>${escapeHtml(size)}</td>
+                <td><span class="stock-badge ${stock <= 0 ? "empty" : ""}">${stock}</span></td>
                 <td>
-                    ${escapeHtml(product.sku || "—")}
+                    <button class="icon-button" style="width:34px;height:34px;" onclick="deleteProduct('${escapeHtml(product.id)}')" title="Удалить">×</button>
                 </td>
-
-                <td>
-                    ${formatMoney(product.price)}
-                </td>
-
-                <td>
-                    ${product.stock}
-                </td>
-
-                <td>
-
-                    <button
-                        class="icon-button"
-                        style="width:34px;height:34px;"
-                        onclick="deleteProduct('${product.id}')"
-                    >
-                        ×
-                    </button>
-
-                </td>
-
             </tr>
-
-        `).join("");
-
+        `;
+    }).join("");
 }
 
+function onProductCategoryChange() {
+    const category = document.getElementById("productCategory")?.value;
+    const group = document.getElementById("productSizeGroup");
+    if (group) group.style.display = category === "clothing" ? "" : "none";
+}
+
+function previewProductPhoto(event) {
+    const file = event.target.files?.[0];
+    const preview = document.getElementById("productPhotoPreview");
+    if (!preview) return;
+
+    if (!file) {
+        preview.textContent = "Нет фото";
+        return;
+    }
+
+    if (!file.type.startsWith("image/")) {
+        alert("Выберите изображение.");
+        event.target.value = "";
+        preview.textContent = "Нет фото";
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+        preview.innerHTML = `<img src="${escapeHtml(reader.result)}" alt="">`;
+    };
+    reader.readAsDataURL(file);
+}
+
+function resetProductModal() {
+    ["productName","productSku","productPrice","productCost","productStock"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+    });
+
+    const category = document.getElementById("productCategory");
+    if (category) category.value = "clothing";
+
+    const size = document.getElementById("productSize");
+    if (size) size.value = "M";
+
+    const photo = document.getElementById("productPhoto");
+    if (photo) photo.value = "";
+
+    const preview = document.getElementById("productPhotoPreview");
+    if (preview) preview.textContent = "Нет фото";
+
+    onProductCategoryChange();
+}
 
 function addProduct() {
+    const account = getActiveStoreAccount();
+    if (!account) return;
 
-    const account =
-        getAccount();
-
-
-    const name =
-        document.getElementById(
-            "productName"
-        ).value.trim();
-
-
-    const sku =
-        document.getElementById(
-            "productSku"
-        ).value.trim();
-
-
-    const price =
-        document.getElementById(
-            "productPrice"
-        ).value;
-
-
-    const stock =
-        document.getElementById(
-            "productStock"
-        ).value;
-
+    const name = document.getElementById("productName")?.value.trim() || "";
+    const sku = document.getElementById("productSku")?.value.trim() || "";
+    const price = Number(document.getElementById("productPrice")?.value || 0);
+    const cost = Number(document.getElementById("productCost")?.value || 0);
+    const category = document.getElementById("productCategory")?.value || "clothing";
+    const size = category === "clothing" ? (document.getElementById("productSize")?.value || "") : "";
+    const stock = Number(document.getElementById("productStock")?.value || 0);
+    const image = document.getElementById("productPhotoPreview")?.querySelector("img")?.src || "";
 
     if (!name) {
-
-        alert(
-            account?.language === "uk"
-                ? "Введіть назву товару."
-                : "Введите название товара."
-        );
-
+        alert(account.language === "uk" ? "Введіть назву товару." : "Введите название товара.");
         return;
-
     }
 
-
-    if (!account.products) {
-
-        account.products = [];
-
+    if (!Number.isFinite(price) || price < 0 || !Number.isFinite(cost) || cost < 0 || !Number.isInteger(stock) || stock < 0) {
+        alert(account.language === "uk" ? "Перевірте ціну, собівартість та залишок." : "Проверьте цену, себестоимость и остаток.");
+        return;
     }
 
+    if (cost > price && price > 0) {
+        // Не блокируем добавление: иногда себестоимость действительно выше текущей цены.
+    }
+
+    if (!account.products) account.products = [];
 
     const product = {
-
-        id:
-            Date.now().toString(),
-
-        name:
-            name,
-
-        sku:
-            sku,
-
-        price:
-            Number(price || 0),
-
-        stock:
-            Number(stock || 0)
-
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+        name,
+        sku,
+        price,
+        cost,
+        category,
+        size,
+        sizes: category === "clothing" ? [size] : [],
+        stock,
+        image
     };
 
-
-    account.products.push(
-        product
-    );
-
-
+    account.products.push(product);
     saveAccount(account);
 
-
-    document.getElementById(
-        "productName"
-    ).value = "";
-
-
-    document.getElementById(
-        "productSku"
-    ).value = "";
-
-
-    document.getElementById(
-        "productPrice"
-    ).value = "";
-
-
-    document.getElementById(
-        "productStock"
-    ).value = "";
-
-
-    closeModal(
-        "productModal"
-    );
-
-
+    resetProductModal();
+    closeModal("productModal");
     updateDashboard();
-
     renderProducts();
-
+    populateOrderProductSelect();
 }
 
-
 function deleteProduct(id) {
+    const account = getActiveStoreAccount();
+    if (!account) return;
 
-    const account =
-        getAccount();
+    const message = account.language === "uk" ? "Видалити товар?" : "Удалить товар?";
+    if (!confirm(message)) return;
 
-
-    const message =
-        account?.language === "uk"
-            ? "Видалити товар?"
-            : "Удалить товар?";
-
-
-    if (!confirm(message)) {
-        return;
-    }
-
-
-    account.products =
-        (account.products || [])
-            .filter(product =>
-                product.id !== id
-            );
-
-
+    account.products = (account.products || []).filter(product => String(product.id) !== String(id));
     saveAccount(account);
 
-
     updateDashboard();
-
     renderProducts();
-
+    populateOrderProductSelect();
 }
 
 
@@ -4196,6 +5653,27 @@ function loadSettings() {
 }
 
 
+function applyTheme(account) {
+    if (!account) return;
+
+    const theme = account.theme || "dark";
+    const density = account.density || "comfortable";
+    const animations = account.animations !== false;
+
+    document.body.dataset.theme = theme;
+    document.body.classList.toggle("compact-ui", density === "compact");
+    document.body.classList.toggle("no-animations", !animations);
+
+    const themeInput = document.getElementById("settingsTheme");
+    const densityInput = document.getElementById("settingsDensity");
+    const animationsInput = document.getElementById("settingsAnimations");
+
+    if (themeInput) themeInput.value = theme;
+    if (densityInput) densityInput.value = density;
+    if (animationsInput) animationsInput.checked = animations;
+}
+
+
 function saveSettings() {
 
     const account =
@@ -4221,6 +5699,21 @@ function saveSettings() {
             "settingsCurrency"
         ).value;
 
+    const theme =
+        document.getElementById(
+            "settingsTheme"
+        ).value;
+
+    const density =
+        document.getElementById(
+            "settingsDensity"
+        ).value;
+
+    const animations =
+        document.getElementById(
+            "settingsAnimations"
+        ).checked;
+
 
     if (name.length < 2) {
 
@@ -4244,8 +5737,19 @@ function saveSettings() {
     account.currency =
         currency;
 
+    account.theme =
+        theme;
+
+    account.density =
+        density;
+
+    account.animations =
+        animations;
+
 
     saveAccount(account);
+
+    applyTheme(account);
 
 
     document.getElementById(
@@ -4339,6 +5843,11 @@ function applyTranslations() {
             uk: "Пошук клієнта..."
         },
 
+        "clientUsername": {
+            ru: "@username",
+            uk: "@username"
+        },
+
         "productSearch": {
             ru: "Поиск товара...",
             uk: "Пошук товару..."
@@ -4412,6 +5921,13 @@ function getCurrentSection() {
 ========================= */
 
 function refreshDashboard() {
+
+    renderStoreSwitcher();
+    const account = getAccount();
+    if (account) {
+        syncClientOrderCounts(account);
+        saveAccount(account);
+    }
 
     updateDashboard();
 
@@ -4524,6 +6040,30 @@ document.addEventListener(
 
         }
 
+        if (
+            event.target.id === "settingsTheme" ||
+            event.target.id === "settingsDensity" ||
+            event.target.id === "settingsAnimations"
+        ) {
+            const account = getAccount();
+            if (!account) return;
+
+            if (event.target.id === "settingsTheme") {
+                account.theme = event.target.value;
+            }
+
+            if (event.target.id === "settingsDensity") {
+                account.density = event.target.value;
+            }
+
+            if (event.target.id === "settingsAnimations") {
+                account.animations = event.target.checked;
+            }
+
+            saveAccount(account);
+            applyTheme(account);
+        }
+
     }
 );
 
@@ -4550,7 +6090,12 @@ document.addEventListener(
         }
 
 
+        applyTheme(account);
         loadSettings();
+        renderStoreSwitcher();
+
+        syncClientOrderCounts(account);
+        saveAccount(account);
 
         applyTranslations();
 
