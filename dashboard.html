@@ -1402,6 +1402,91 @@
             font-weight: 600;
         }
 
+        .analytics-filter-panel {
+            margin-top: 18px;
+            background: #0b0b0b;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .analytics-filter-body { padding: 18px; }
+        .analytics-filter-controls {
+            display: grid;
+            grid-template-columns: minmax(170px,1fr) minmax(130px,180px) auto;
+            gap: 10px;
+            align-items: end;
+        }
+        .analytics-filter-group label {
+            display:block;
+            color:#666;
+            font-size:10px;
+            margin-bottom:7px;
+        }
+        .analytics-filter-input {
+            width:100%;
+            height:42px;
+            padding:0 12px;
+            border-radius:10px;
+            border:1px solid rgba(255,255,255,.08);
+            background:#101010;
+            color:#eee;
+            outline:none;
+        }
+        .analytics-metric-toggle {
+            display:flex;
+            height:42px;
+            padding:3px;
+            gap:3px;
+            border-radius:10px;
+            border:1px solid rgba(255,255,255,.08);
+            background:#101010;
+        }
+        .analytics-metric-toggle button {
+            border:0;
+            border-radius:7px;
+            padding:0 13px;
+            background:transparent;
+            color:#666;
+            cursor:pointer;
+            font-size:10px;
+            font-weight:600;
+        }
+        .analytics-metric-toggle button.active {
+            background:#eee;
+            color:#111;
+        }
+        .analytics-selected-grid {
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:12px;
+            margin-top:14px;
+        }
+        .analytics-selected-card {
+            padding:16px;
+            border:1px solid rgba(255,255,255,.06);
+            border-radius:12px;
+            background:rgba(255,255,255,.025);
+        }
+        .analytics-selected-label { color:#666; font-size:10px; margin-bottom:8px; }
+        .analytics-selected-value { font-size:24px; font-weight:700; letter-spacing:-.5px; }
+        .analytics-selected-meta { color:#555; font-size:9px; margin-top:6px; }
+        body[data-theme="light"] .analytics-filter-panel { background:#fff; border-color:rgba(0,0,0,.09); }
+        body[data-theme="light"] .analytics-filter-input,
+        body[data-theme="light"] .analytics-metric-toggle { background:#fafafa; color:#171717; border-color:rgba(0,0,0,.11); }
+        body[data-theme="light"] .analytics-metric-toggle button { color:#777; }
+        body[data-theme="light"] .analytics-metric-toggle button.active { background:#171717; color:#fff; }
+        body[data-theme="light"] .analytics-selected-card { background:#fafafa; border-color:rgba(0,0,0,.08); }
+        body[data-theme="light"] .analytics-selected-value { color:#171717; }
+        body[data-theme="graphite"] .analytics-filter-panel { background:#1e1e1e; }
+        body[data-theme="graphite"] .analytics-filter-input,
+        body[data-theme="graphite"] .analytics-metric-toggle { background:#292929; }
+        @media (max-width:700px) {
+            .analytics-filter-controls { grid-template-columns:1fr; }
+            .analytics-metric-toggle { width:100%; }
+            .analytics-metric-toggle button { flex:1; }
+            .analytics-selected-grid { grid-template-columns:1fr; }
+        }
+
         .analytics-grid {
             display: grid;
             grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -2117,6 +2202,369 @@ button[data-order-details]:hover {
     }
 </style>
 
+<style>
+
+/* =====================================================
+   MOBILE APP UI
+   ===================================================== */
+@media (max-width: 700px) {
+    html, body {
+        width: 100%;
+        min-width: 0 !important;
+        overflow-x: hidden;
+    }
+
+    body {
+        font-size: 14px;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .sidebar {
+        position: fixed !important;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: auto !important;
+        width: 100% !important;
+        height: 68px !important;
+        min-height: 68px;
+        padding: 6px 8px calc(6px + env(safe-area-inset-bottom)) !important;
+        display: flex !important;
+        align-items: stretch;
+        justify-content: center;
+        z-index: 1000;
+        border-right: 0 !important;
+        border-top: 1px solid rgba(255,255,255,.08);
+        background: rgba(10,10,10,.94) !important;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+    }
+
+    .brand,
+    .menu-title,
+    .store-box,
+    .logout-button {
+        display: none !important;
+    }
+
+    .sidebar nav,
+    .sidebar-menu,
+    .menu {
+        width: 100%;
+        height: 100%;
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4px;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .nav-button {
+        min-width: 0 !important;
+        width: 100% !important;
+        height: 56px !important;
+        padding: 5px 2px !important;
+        margin: 0 !important;
+        border-radius: 13px !important;
+        border: 1px solid transparent !important;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        font-size: 9px !important;
+        line-height: 1.05;
+        text-align: center;
+    }
+
+    .nav-button .icon,
+    .nav-button svg {
+        width: 20px;
+        height: 20px;
+        font-size: 18px;
+    }
+
+    .main {
+        margin-left: 0 !important;
+        width: 100% !important;
+        max-width: none !important;
+        padding: 16px 12px 92px !important;
+    }
+
+    .page-title {
+        padding: 4px 2px 14px !important;
+    }
+
+    .page-title h1 {
+        font-size: 25px !important;
+        letter-spacing: -.7px;
+    }
+
+    .page-title p {
+        font-size: 11px !important;
+        margin-top: 5px;
+    }
+
+    .stats-grid,
+    .finance-periods,
+    .analytics-grid,
+    .dashboard-grid,
+    .settings-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+
+    .stat-card,
+    .finance-card,
+    .panel,
+    .finance-panel,
+    .analytics-panel,
+    .settings-card {
+        border-radius: 16px !important;
+    }
+
+    .stats-grid {
+        margin-bottom: 12px !important;
+    }
+
+    .stat-card {
+        min-height: 88px;
+        padding: 15px !important;
+    }
+
+    .stat-value {
+        font-size: 23px !important;
+    }
+
+    .finance-panel,
+    .analytics-panel,
+    .panel {
+        margin-top: 12px !important;
+    }
+
+    .finance-header,
+    .panel-header {
+        padding: 15px !important;
+    }
+
+    .finance-body,
+    .analytics-body {
+        padding: 13px !important;
+    }
+
+    .finance-periods {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .finance-card {
+        min-height: 100px;
+        padding: 14px !important;
+    }
+
+    .finance-card-value {
+        font-size: 20px !important;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .finance-extra {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 0;
+    }
+
+    .finance-extra-item {
+        padding: 10px !important;
+        border-right: 0;
+        border-bottom: 1px solid rgba(255,255,255,.055);
+    }
+
+    .finance-extra-item:nth-child(odd) {
+        border-right: 1px solid rgba(255,255,255,.055);
+    }
+
+    .toolbar {
+        flex-direction: column !important;
+        gap: 9px !important;
+    }
+
+    .search-box {
+        max-width: none !important;
+        width: 100%;
+    }
+
+    .primary-button,
+    .secondary-button {
+        min-height: 44px;
+        border-radius: 12px !important;
+    }
+
+    .toolbar .primary-button {
+        width: 100%;
+    }
+
+    .table-container {
+        margin: 0 -4px;
+        border-radius: 12px;
+    }
+
+    .crm-table {
+        min-width: 650px;
+    }
+
+    .crm-table th,
+    .crm-table td {
+        padding: 11px 12px !important;
+    }
+
+    .orders-list {
+        padding: 3px 13px 8px !important;
+    }
+
+    .order-row {
+        grid-template-columns: 1fr auto !important;
+        gap: 5px 9px !important;
+        padding: 13px 0 !important;
+    }
+
+    .order-price {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        align-self: center;
+    }
+
+    .status {
+        font-size: 9px !important;
+    }
+
+    .modal-overlay {
+        align-items: flex-end !important;
+        padding: 0 !important;
+    }
+
+    .modal {
+        max-width: none !important;
+        width: 100% !important;
+        max-height: 92vh;
+        overflow-y: auto;
+        border-radius: 22px 22px 0 0 !important;
+        padding: 19px 16px calc(18px + env(safe-area-inset-bottom)) !important;
+    }
+
+    .modal-header {
+        margin-bottom: 17px !important;
+    }
+
+    .modal-title {
+        font-size: 17px !important;
+    }
+
+    .form-control {
+        height: 47px !important;
+        border-radius: 12px !important;
+        font-size: 14px !important;
+    }
+
+    .form-group {
+        margin-bottom: 13px !important;
+    }
+
+    .modal-footer {
+        position: sticky;
+        bottom: 0;
+        background: #101010;
+        padding-top: 10px;
+        margin-top: 15px !important;
+    }
+
+    .settings-content {
+        padding: 10px 0 !important;
+        max-width: none !important;
+    }
+
+    .settings-grid {
+        gap: 10px !important;
+    }
+
+    .settings-card {
+        padding: 15px !important;
+    }
+
+    .settings-option {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .settings-select {
+        width: 145px !important;
+        min-width: 0 !important;
+    }
+
+    .revenue-chart {
+        height: 210px !important;
+    }
+
+    .daily-chart {
+        min-height: 210px;
+    }
+
+    /* Touch-friendly controls */
+    button,
+    select,
+    input,
+    textarea {
+        touch-action: manipulation;
+    }
+
+    button {
+        min-height: 42px;
+    }
+
+    /* Product cards / grids become single-column when present */
+    .products-grid,
+    .product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 9px !important;
+    }
+
+    .product-card {
+        min-width: 0;
+        border-radius: 15px !important;
+        overflow: hidden;
+    }
+
+    .product-card img,
+    .product-image {
+        max-height: 170px;
+        object-fit: cover;
+    }
+}
+
+@media (max-width: 390px) {
+    .main {
+        padding-left: 9px !important;
+        padding-right: 9px !important;
+    }
+
+    .finance-periods {
+        gap: 8px !important;
+    }
+
+    .finance-card-value {
+        font-size: 18px !important;
+    }
+
+    .nav-button {
+        font-size: 8px !important;
+    }
+
+    .nav-button .icon,
+    .nav-button svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+</style>
 </head>
 
 <body>
@@ -2465,6 +2913,46 @@ button[data-order-details]:hover {
 
             </div>
 
+
+            <div class="analytics-filter-panel">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-title" data-i18n="Финансы за выбранный период">Финансы за выбранный период</div>
+                        <div class="panel-subtitle" data-i18n="Выберите дату, год и тип суммы">Выберите дату, год и тип суммы</div>
+                    </div>
+                </div>
+                <div class="analytics-filter-body">
+                    <div class="analytics-filter-controls">
+                        <div class="analytics-filter-group">
+                            <label data-i18n="Число">Число</label>
+                            <input class="analytics-filter-input" id="analyticsSelectedDate" type="date">
+                        </div>
+                        <div class="analytics-filter-group">
+                            <label data-i18n="Год">Год</label>
+                            <select class="analytics-filter-input" id="analyticsSelectedYear"></select>
+                        </div>
+                        <div class="analytics-filter-group">
+                            <label data-i18n="Тип суммы">Тип суммы</label>
+                            <div class="analytics-metric-toggle">
+                                <button type="button" id="analyticsMetricGross" class="active" onclick="setAnalyticsMetric('gross')" data-i18n="Не чистая">Не чистая</button>
+                                <button type="button" id="analyticsMetricNet" onclick="setAnalyticsMetric('net')" data-i18n="Чистая прибыль">Чистая прибыль</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="analytics-selected-grid">
+                        <div class="analytics-selected-card">
+                            <div class="analytics-selected-label" data-i18n="За выбранное число">За выбранное число</div>
+                            <div class="analytics-selected-value" id="analyticsSelectedDateValue">0</div>
+                            <div class="analytics-selected-meta" id="analyticsSelectedDateMeta">—</div>
+                        </div>
+                        <div class="analytics-selected-card">
+                            <div class="analytics-selected-label" data-i18n="За выбранный год">За выбранный год</div>
+                            <div class="analytics-selected-value" id="analyticsSelectedYearValue">0</div>
+                            <div class="analytics-selected-meta" id="analyticsSelectedYearMeta">—</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="finance-panel">
 
@@ -3740,6 +4228,14 @@ const translations = {
             "Выполнено заказов",
 
         "Статистика дохода": "Статистика дохода",
+        "Финансы за выбранный период": "Финансы за выбранный период",
+        "Выберите дату, год и тип суммы": "Выберите дату, год и тип суммы",
+        "Число": "Число",
+        "Тип суммы": "Тип суммы",
+        "Не чистая": "Не чистая",
+        "Чистая прибыль": "Чистая прибыль",
+        "За выбранное число": "За выбранное число",
+        "За выбранный год": "За выбранный год",
         "Выполненные заказы": "Выполненные заказы",
         "Сегодня": "Сегодня",
         "Неделя": "Неделя",
@@ -3951,6 +4447,14 @@ const translations = {
             "Виконано замовлень",
 
         "Статистика дохода": "Статистика доходу",
+        "Финансы за выбранный период": "Фінанси за вибраний період",
+        "Выберите дату, год и тип суммы": "Оберіть дату, рік і тип суми",
+        "Число": "Число",
+        "Тип суммы": "Тип суми",
+        "Не чистая": "Не чиста",
+        "Чистая прибыль": "Чистий прибуток",
+        "За выбранное число": "За вибраний день",
+        "За выбранный год": "За вибраний рік",
         "Выполненные заказы": "Виконані замовлення",
         "Сегодня": "Сьогодні",
         "Неделя": "Тиждень",
@@ -4761,6 +5265,86 @@ function syncClientOrderCounts(account) {
    ANALYTICS
 ========================= */
 
+function getAnalyticsMetricValue(order) {
+    const amount = Number(order.amount || 0);
+    const cost = Number(order.cost || 0);
+    return window.analyticsMetric === "net" ? amount - cost : amount;
+}
+
+function setAnalyticsMetric(metric) {
+    window.analyticsMetric = metric === "net" ? "net" : "gross";
+    const gross = document.getElementById("analyticsMetricGross");
+    const net = document.getElementById("analyticsMetricNet");
+    if (gross) gross.classList.toggle("active", window.analyticsMetric === "gross");
+    if (net) net.classList.toggle("active", window.analyticsMetric === "net");
+    renderAnalytics();
+}
+
+function initAnalyticsPeriodControls() {
+    const dateInput = document.getElementById("analyticsSelectedDate");
+    const yearSelect = document.getElementById("analyticsSelectedYear");
+    if (!dateInput || !yearSelect) return;
+
+    const now = new Date();
+    if (!window.analyticsMetric) window.analyticsMetric = "gross";
+    if (!dateInput.value) {
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, "0");
+        const d = String(now.getDate()).padStart(2, "0");
+        dateInput.value = `${y}-${m}-${d}`;
+    }
+
+    const currentYear = now.getFullYear();
+    const existing = Number(yearSelect.value || currentYear);
+    yearSelect.innerHTML = "";
+    for (let year = currentYear - 10; year <= currentYear + 1; year++) {
+        const option = document.createElement("option");
+        option.value = String(year);
+        option.textContent = String(year);
+        yearSelect.appendChild(option);
+    }
+    yearSelect.value = String(existing >= currentYear - 10 && existing <= currentYear + 1 ? existing : currentYear);
+
+    dateInput.onchange = renderAnalytics;
+    yearSelect.onchange = renderAnalytics;
+}
+
+function renderSelectedAnalytics(account, completed) {
+    const dateInput = document.getElementById("analyticsSelectedDate");
+    const yearSelect = document.getElementById("analyticsSelectedYear");
+    const dateValue = document.getElementById("analyticsSelectedDateValue");
+    const yearValue = document.getElementById("analyticsSelectedYearValue");
+    const dateMeta = document.getElementById("analyticsSelectedDateMeta");
+    const yearMeta = document.getElementById("analyticsSelectedYearMeta");
+    if (!dateInput || !yearSelect) return;
+
+    const selectedDate = dateInput.value ? new Date(dateInput.value + "T00:00:00") : new Date();
+    const selectedYear = Number(yearSelect.value) || new Date().getFullYear();
+    const metricLabel = window.analyticsMetric === "net"
+        ? (account.language === "uk" ? "Чистий прибуток" : "Чистая прибыль")
+        : (account.language === "uk" ? "Виручка" : "Не чистая / выручка");
+
+    const sameDay = completed.filter(order => {
+        const d = new Date(order.date);
+        return !Number.isNaN(d.getTime()) &&
+            d.getFullYear() === selectedDate.getFullYear() &&
+            d.getMonth() === selectedDate.getMonth() &&
+            d.getDate() === selectedDate.getDate();
+    });
+    const sameYear = completed.filter(order => {
+        const d = new Date(order.date);
+        return !Number.isNaN(d.getTime()) && d.getFullYear() === selectedYear;
+    });
+
+    const sum = list => list.reduce((total, order) => total + getAnalyticsMetricValue(order), 0);
+    if (dateValue) dateValue.textContent = formatMoney(sum(sameDay));
+    if (yearValue) yearValue.textContent = formatMoney(sum(sameYear));
+
+    const locale = account.language === "uk" ? "uk-UA" : "ru-RU";
+    if (dateMeta) dateMeta.textContent = `${selectedDate.toLocaleDateString(locale)} · ${metricLabel} · ${sameDay.length} ${account.language === "uk" ? "замовл." : "заказов"}`;
+    if (yearMeta) yearMeta.textContent = `${selectedYear} · ${metricLabel} · ${sameYear.length} ${account.language === "uk" ? "замовл." : "заказов"}`;
+}
+
 function renderAnalytics() {
 
     const chart = document.getElementById("revenueChart");
@@ -4776,6 +5360,9 @@ function renderAnalytics() {
     const locale = account.language === "uk" ? "uk-UA" : "ru-RU";
 
     const completed = orders.filter(order => order.status === "completed" && order.date);
+
+    initAnalyticsPeriodControls();
+    renderSelectedAnalytics(account, completed);
 
     const toDate = order => {
         const date = new Date(order.date);
